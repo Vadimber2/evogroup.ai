@@ -79,19 +79,19 @@ const TrustSignals: React.FC = () => {
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
               {[
-                { icon: '🏦', name: 'Крупнейший банк КР', color: 'blue' },
-                { icon: '🏭', name: 'НефтеПром КР', color: 'orange' },
-                { icon: '🏛️', name: 'Министерство цифрового развития', color: 'purple' },
-                { icon: '💼', name: 'Корпорация развития КР', color: 'green' },
+                { icon: 'bank', name: 'Крупнейший банк КР', color: 'text-blue-600' },
+                { icon: 'factory', name: 'НефтеПром КР', color: 'text-orange-600' },
+                { icon: 'government', name: 'Министерство цифрового развития', color: 'text-purple-600' },
+                { icon: 'building', name: 'Корпорация развития КР', color: 'text-green-600' },
               ].map((client) => (
                 <motion.div
                   key={client.name}
                   variants={itemVariants}
-                  className="flex flex-col items-center justify-center p-4 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                  className="flex flex-col items-center justify-center p-4 hover:bg-gray-50 rounded-lg transition-colors duration-200 group"
                 >
-                  <span className="text-5xl mb-2 opacity-80 hover:opacity-100 transition-opacity">
-                    {client.icon}
-                  </span>
+                  <div className={`mb-3 ${client.color} opacity-80 group-hover:opacity-100 transition-all duration-200 group-hover:scale-110`}>
+                    <Icon name={client.icon} size="xl" />
+                  </div>
                   <span className="text-sm text-gray-600 text-center">{client.name}</span>
                 </motion.div>
               ))}

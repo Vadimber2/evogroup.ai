@@ -88,10 +88,11 @@ const Hero: React.FC = () => {
           {/* Main heading */}
           <motion.h1 
             variants={fadeIn}
-            className="text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-white leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-white leading-tight px-4 sm:px-0"
           >
             Искусственный интеллект
-            <br />
+            <br className="hidden sm:block" />
+            <span className="sm:hidden"> </span>
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               в основе цифровой трансформации
             </span>
@@ -100,7 +101,7 @@ const Hero: React.FC = () => {
           {/* Subheading */}
           <motion.p 
             variants={fadeIn}
-            className="text-lg sm:text-xl lg:text-2xl text-white/80 max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 max-w-3xl mx-auto px-4 sm:px-6 lg:px-0"
           >
             Комплексные ИИ-решения для банков, нефтеперерабатывающих компаний 
             и государственного сектора Кыргызской Республики
@@ -109,14 +110,22 @@ const Hero: React.FC = () => {
           {/* CTA Buttons */}
           <motion.div 
             variants={fadeIn}
-            className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 px-4 sm:px-0 w-full sm:w-auto"
           >
-            <Button size="xl" variant="secondary" className="shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
-              <Icon name="rocket" className="mr-2" />
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="w-full sm:w-auto shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
+            >
+              <Icon name="rocket" className="mr-2" size="sm" />
               Запросить демо
             </Button>
-            <Button size="xl" variant="outline" className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm">
-              <Icon name="document" className="mr-2" />
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+            >
+              <Icon name="document" className="mr-2" size="sm" />
               Скачать презентацию
             </Button>
           </motion.div>
@@ -124,7 +133,7 @@ const Hero: React.FC = () => {
           {/* Stats */}
           <motion.div 
             variants={fadeIn}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-12"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 pt-8 sm:pt-12 px-4 sm:px-0"
           >
             {[
               { label: 'Проектов завершено', value: companyStats.projectsCompleted, icon: 'check' },
@@ -134,13 +143,13 @@ const Hero: React.FC = () => {
             ].map((stat) => (
               <motion.div
                 key={stat.label}
-                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4"
+                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl p-3 sm:p-4"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <Icon name={stat.icon} className="text-blue-400 text-2xl mb-2" />
-                <div className="text-2xl lg:text-3xl font-bold text-white">{stat.value}</div>
-                <div className="text-sm text-white/70">{stat.label}</div>
+                <Icon name={stat.icon} className="text-blue-400 mb-1 sm:mb-2" size="md" />
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-white/70 leading-tight">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -161,15 +170,21 @@ const Hero: React.FC = () => {
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/20 to-transparent py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-white/60 text-sm mb-4">Нам доверяют лидеры рынка</p>
-          <div className="flex items-center justify-center space-x-8 opacity-60">
-            {['🏦', '🏭', '🏛️', '💼', '🏢'].map((icon, i) => (
-              <motion.span
+          <div className="flex items-center justify-center space-x-8">
+            {[
+              { icon: 'bank', color: 'text-blue-600' },
+              { icon: 'factory', color: 'text-orange-600' },
+              { icon: 'government', color: 'text-purple-600' },
+              { icon: 'building', color: 'text-green-600' },
+              { icon: 'database', color: 'text-indigo-600' }
+            ].map((item, i) => (
+              <motion.div
                 key={i}
-                className="text-3xl grayscale hover:grayscale-0 transition-all duration-300"
+                className={`${item.color} opacity-40 hover:opacity-100 transition-all duration-300`}
                 whileHover={{ scale: 1.1 }}
               >
-                {icon}
-              </motion.span>
+                <Icon name={item.icon} size="lg" />
+              </motion.div>
             ))}
           </div>
         </div>

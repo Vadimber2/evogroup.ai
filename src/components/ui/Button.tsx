@@ -23,12 +23,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             'text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-500': variant === 'ghost',
           },
           
-          // Sizes
+          // Sizes - mobile first
           {
-            'h-8 px-3 text-sm': size === 'sm',
-            'h-10 px-4 text-sm': size === 'md',
-            'h-12 px-6 text-base': size === 'lg',
-            'h-14 px-8 text-lg': size === 'xl',
+            'h-9 px-3 text-sm': size === 'sm',
+            'h-11 px-4 text-sm sm:text-base': size === 'md',
+            'h-12 px-5 sm:px-6 text-base': size === 'lg',
+            'h-14 px-6 sm:px-8 text-base sm:text-lg': size === 'xl',
           },
           
           className
