@@ -576,17 +576,17 @@ export const FinancialDashboard: React.FC<ChartProps> = ({ className = '' }) => 
         </div>
         
         {/* Metrics row */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
           {[
             { label: 'Revenue', value: '$12.4M', change: '+23%' },
             { label: 'Transactions', value: '1.2M', change: '+15%' },
             { label: 'Users', value: '45.6K', change: '+8%' },
             { label: 'Efficiency', value: '94.5%', change: '+12%' }
           ].map((metric, i) => (
-            <div key={i} className="bg-gray-800/50 rounded-lg p-3 backdrop-blur">
-              <p className="text-gray-400 text-xs mb-1">{metric.label}</p>
-              <p className="text-white text-lg font-bold">{metric.value}</p>
-              <p className="text-green-400 text-xs">{metric.change}</p>
+            <div key={i} className="bg-gray-800/50 rounded-lg p-2 sm:p-3 backdrop-blur">
+              <p className="text-gray-400 text-[10px] sm:text-xs mb-1">{metric.label}</p>
+              <p className="text-white text-sm sm:text-lg font-bold">{metric.value}</p>
+              <p className="text-green-400 text-[10px] sm:text-xs">{metric.change}</p>
             </div>
           ))}
         </div>
