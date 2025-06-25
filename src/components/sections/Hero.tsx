@@ -131,7 +131,7 @@ const Hero: React.FC = () => {
               { label: 'Сэкономлено клиентам', value: companyStats.clientsSaved, icon: 'money' },
               { label: 'Uptime системы', value: companyStats.uptime, icon: 'shield' },
               { label: 'Экспертов в команде', value: companyStats.teamSize, icon: 'brain' },
-            ].map((stat, index) => (
+            ].map((stat) => (
               <motion.div
                 key={stat.label}
                 className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4"

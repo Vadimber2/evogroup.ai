@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { clients } from '@/lib/data'
 import { Icon } from '@/components/ui/Icon'
 
 const TrustSignals: React.FC = () => {
@@ -84,7 +83,7 @@ const TrustSignals: React.FC = () => {
                 { icon: '🏭', name: 'НефтеПром КР', color: 'orange' },
                 { icon: '🏛️', name: 'Министерство цифрового развития', color: 'purple' },
                 { icon: '💼', name: 'Корпорация развития КР', color: 'green' },
-              ].map((client, index) => (
+              ].map((client) => (
                 <motion.div
                   key={client.name}
                   variants={itemVariants}
@@ -160,8 +159,8 @@ const TrustSignals: React.FC = () => {
           className="text-center mt-12"
         >
           <p className="text-lg text-gray-600 italic">
-            "ФискалеПро - единственная компания в Кыргызстане с полной интеграцией государственных API 
-            и экспертизой в области искусственного интеллекта для enterprise-решений"
+            &ldquo;ФискалеПро - единственная компания в Кыргызстане с полной интеграцией государственных API 
+            и экспертизой в области искусственного интеллекта для enterprise-решений&rdquo;
           </p>
           <p className="text-sm text-gray-500 mt-2">
             — Ассоциация IT-компаний Кыргызстана
