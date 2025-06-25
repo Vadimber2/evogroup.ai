@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  fiscalepro-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fiscalepro-landing
+    ports:
+      - "4599:4599"
+    environment:
+      - NODE_ENV=production
+      - PORT=4599
+      - HOSTNAME=0.0.0.0
+    restart: unless-stopped
