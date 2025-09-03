@@ -1,52 +1,61 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
-import { competitiveAdvantages } from '@/lib/data'
-import { Icon } from '@/components/ui/Icon'
 
 const CompetitiveAdvantages: React.FC = () => {
-  return (
-    <section id="advantages" className="py-20 bg-gradient-to-br from-navy via-blue-900 to-purple-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl lg:text-5xl font-display font-bold mb-4">
-            Почему выбирают нас
-          </h2>
-          <p className="text-lg text-white/80 max-w-3xl mx-auto">
-            Мы не просто разрабатываем ПО — мы создаем интеллектуальные экосистемы
-          </p>
-        </motion.div>
+    // Временно используем статичные данные, потом подключим из data
+    const advantages = [
+        {
+            title: "Экспертиза в ИИ",
+            description: "15+ лет опыта в разработке решений искусственного интеллекта",
+            icon: "🧠"
+        },
+        {
+            title: "Быстрое внедрение",
+            description: "Готовые решения и API для интеграции за считанные дни",
+            icon: "⚡"
+        },
+        {
+            title: "24/7 Поддержка",
+            description: "Круглосуточная техническая поддержка и мониторинг систем",
+            icon: "🛡️"
+        },
+        {
+            title: "Гибкость решений",
+            description: "Адаптируем технологии под специфику вашего бизнеса",
+            icon: "🔧"
+        }
+    ]
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {competitiveAdvantages.map((advantage, index) => (
-            <motion.div
-              key={advantage.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="text-center"
-            >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
-                <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <Icon name={advantage.icon} size="xl" />
+    return (
+        <section className="py-24 bg-slate-800/30">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="text-center mb-16">
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                        Почему выбирают нас
+                    </h2>
+                    <p className="text-xl text-white/70 max-w-3xl mx-auto">
+                        Мы не просто разрабатываем ПО — мы создаем интеллектуальные экосистемы
+                    </p>
                 </div>
-                <h3 className="text-xl font-bold mb-2">{advantage.title}</h3>
-                <p className="text-white/80 text-sm">{advantage.description}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {advantages.map((advantage, index) => (
+                        <div
+                            key={advantage.title}
+                            className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105 border border-white/10"
+                        >
+                            <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span className="text-3xl">{advantage.icon}</span>
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-4">{advantage.title}</h3>
+                            <p className="text-white/70 text-sm leading-relaxed">{advantage.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    )
 }
 
 export default CompetitiveAdvantages

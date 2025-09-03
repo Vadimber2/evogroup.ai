@@ -1,75 +1,83 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { teamMembers } from '@/lib/data'
-import { Card } from '@/components/ui/Card'
-import { Icon } from '@/components/ui/Icon'
-
-const Team: React.FC = () => {
-  return (
-    <section id="about" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl lg:text-5xl font-display font-bold text-gray-900 mb-4">
-            Наша команда
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Эксперты в области искусственного интеллекта и enterprise-разработки
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={member.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Card variant="hover" className="text-center">
-                <div className="p-6">
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Icon name="brain" className="text-3xl text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                  <p className="text-blue-600 font-medium mb-4">{member.position}</p>
-                  <div className="flex flex-wrap gap-2 justify-center mb-4">
-                    {member.expertise.map((skill) => (
-                      <span 
-                        key={skill} 
-                        className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                  {member.linkedin && (
-                    <a 
-                      href={member.linkedin} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-blue-600 hover:text-blue-700"
-                    >
-                      <Icon name="linkedin" className="mr-2" />
-                      LinkedIn
-                    </a>
-                  )}
+export default function Team() {
+    return (
+        <section className="px-6 py-24 bg-slate-800/30">
+            <div className="max-w-6xl mx-auto">
+                <div className="text-center mb-16">
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                        Наша команда
+                    </h2>
+                    <p className="text-xl text-white/70">
+                        Опытные специалисты в области искусственного интеллекта
+                    </p>
                 </div>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
-export default Team
+                <div className="grid md:grid-cols-3 gap-8">
+                    {/* CEO Card */}
+                    <div className="text-center group">
+                        <div className="relative mb-6">
+                            <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-blue-400 to-purple-600 p-1">
+                                <div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center text-4xl font-bold text-white">
+                                    АП
+                                </div>
+                            </div>
+                            <div className="absolute inset-0 rounded-full bg-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            Алексей Петров
+                        </h3>
+                        <p className="text-blue-400 font-semibold mb-2">
+                            CEO & AI Architect
+                        </p>
+                        <p className="text-white/60 text-sm">
+                            15+ лет в ИИ
+                        </p>
+                    </div>
+
+                    {/* CTO Card */}
+                    <div className="text-center group">
+                        <div className="relative mb-6">
+                            <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-400 to-pink-600 p-1">
+                                <div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center text-4xl font-bold text-white">
+                                    МИ
+                                </div>
+                            </div>
+                            <div className="absolute inset-0 rounded-full bg-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            Мария Иванова
+                        </h3>
+                        <p className="text-purple-400 font-semibold mb-2">
+                            CTO & ML Engineer
+                        </p>
+                        <p className="text-white/60 text-sm">
+                            12+ лет в ML/DL
+                        </p>
+                    </div>
+
+                    {/* Lead Developer Card */}
+                    <div className="text-center group">
+                        <div className="relative mb-6">
+                            <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-green-400 to-blue-600 p-1">
+                                <div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center text-4xl font-bold text-white">
+                                    БО
+                                </div>
+                            </div>
+                            <div className="absolute inset-0 rounded-full bg-green-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            Бекзат Омуралиев
+                        </h3>
+                        <p className="text-green-400 font-semibold mb-2">
+                            Lead Developer
+                        </p>
+                        <p className="text-white/60 text-sm">
+                            10+ лет в разработке
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
+}
