@@ -17,14 +17,14 @@ export default function Team() {
                     {/* CEO Card */}
                     <div className="text-center group">
                         <div className="relative mb-6">
-                            <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-blue-400 to-purple-600 p-1">
+                            <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-blue-400 to-purple-600 p-1 group-hover:scale-110 transition-transform duration-300">
                                 <div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center text-4xl font-bold text-white">
                                     АП
                                 </div>
                             </div>
-                            <div className="absolute inset-0 rounded-full bg-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="absolute inset-0 w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-blue-400/30 to-purple-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
+                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
                             Алексей Петров
                         </h3>
                         <p className="text-blue-400 font-semibold mb-2">
@@ -38,14 +38,14 @@ export default function Team() {
                     {/* CTO Card */}
                     <div className="text-center group">
                         <div className="relative mb-6">
-                            <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-400 to-pink-600 p-1">
+                            <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-400 to-pink-600 p-1 group-hover:scale-110 transition-transform duration-300">
                                 <div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center text-4xl font-bold text-white">
                                     МИ
                                 </div>
                             </div>
-                            <div className="absolute inset-0 rounded-full bg-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="absolute inset-0 w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-400/30 to-pink-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
+                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">
                             Мария Иванова
                         </h3>
                         <p className="text-purple-400 font-semibold mb-2">
@@ -59,14 +59,14 @@ export default function Team() {
                     {/* Lead Developer Card */}
                     <div className="text-center group">
                         <div className="relative mb-6">
-                            <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-green-400 to-blue-600 p-1">
+                            <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-green-400 to-blue-600 p-1 group-hover:scale-110 transition-transform duration-300">
                                 <div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center text-4xl font-bold text-white">
                                     БО
                                 </div>
                             </div>
-                            <div className="absolute inset-0 rounded-full bg-green-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="absolute inset-0 w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-green-400/30 to-blue-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
+                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
                             Бекзат Омуралиев
                         </h3>
                         <p className="text-green-400 font-semibold mb-2">
