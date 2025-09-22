@@ -1,15 +1,68 @@
 'use client'
 
-export default function Solutions() {
+import React from 'react'
+import { useTranslation } from '@/components/providers/I18nProvider'
+
+const Solutions: React.FC = () => {
+    const { t, locale } = useTranslation()
+
+    // Функция для безопасного получения переводов с fallback
+    const getString = (key: string, fallbackRu: string, fallbackEn: string, fallbackKy: string): string => {
+        const value = t(key, 'solutions')
+        if (typeof value === 'string' && value !== key) return value
+
+        // Fallback по языкам
+        if (locale === 'en') return fallbackEn
+        if (locale === 'ky') return fallbackKy
+        return fallbackRu
+    }
+
+    const getTranslations = () => {
+        return {
+            title: getString('title', 'Наши решения', 'Our Solutions', 'Биздин чечимдер'),
+            subtitle: getString('subtitle',
+                'Разрабатываем ИИ-системы для разных отраслей бизнеса',
+                'We develop AI systems for different business industries',
+                'Ар кандай бизнес салаттары үчүн ИИ системаларын иштеп чыгабыз'
+            ),
+            banking: {
+                title: getString('banking.title', 'Банковские решения', 'Banking Solutions', 'Банктык чечимдер'),
+                description: getString('banking.description',
+                    'Автоматизация кредитных решений, анализ рисков и персонализация продуктов',
+                    'Automation of credit decisions, risk analysis and product personalization',
+                    'Кредиттик чечимдерди автоматташтыруу, тобокелдикти талдоо жана продуктуларды жекелештирүү'
+                )
+            },
+            government: {
+                title: getString('government.title', 'Государственный сектор', 'Government Sector', 'Мамлекеттик сектор'),
+                description: getString('government.description',
+                    'Цифровизация услуг, анализ данных и оптимизация процессов',
+                    'Service digitization, data analysis and process optimization',
+                    'Кызматтарды санариптештирүү, маалыматтарды талдоо жана процесстерди оптималдаштыруу'
+                )
+            },
+            energy: {
+                title: getString('energy.title', 'Нефть и газ', 'Oil and Gas', 'Нефть жана газ'),
+                description: getString('energy.description',
+                    'Предиктивная аналитика, оптимизация добычи и мониторинг оборудования',
+                    'Predictive analytics, production optimization and equipment monitoring',
+                    'Алдын ала аналитика, казып алууну оптималдаштыруу жана жабдуулардын мониторинги'
+                )
+            }
+        }
+    }
+
+    const translations = getTranslations()
+
     return (
-        <section className="px-6 py-24 bg-slate-800/50">
+        <section id="solutions" className="px-6 py-24 bg-slate-800/50">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        Наши решения
+                        {translations.title}
                     </h2>
                     <p className="text-xl text-white/70 max-w-3xl mx-auto">
-                        Разрабатываем ИИ-системы для разных отраслей бизнеса
+                        {translations.subtitle}
                     </p>
                 </div>
 
@@ -22,10 +75,10 @@ export default function Solutions() {
                             </svg>
                         </div>
                         <h3 className="text-2xl font-bold text-white mb-4">
-                            Банковские решения
+                            {translations.banking.title}
                         </h3>
                         <p className="text-white/70 leading-relaxed">
-                            Автоматизация кредитных решений, анализ рисков и персонализация продуктов
+                            {translations.banking.description}
                         </p>
                     </div>
 
@@ -37,10 +90,10 @@ export default function Solutions() {
                             </svg>
                         </div>
                         <h3 className="text-2xl font-bold text-white mb-4">
-                            Государственный сектор
+                            {translations.government.title}
                         </h3>
                         <p className="text-white/70 leading-relaxed">
-                            Цифровизация услуг, анализ данных и оптимизация процессов
+                            {translations.government.description}
                         </p>
                     </div>
 
@@ -52,10 +105,10 @@ export default function Solutions() {
                             </svg>
                         </div>
                         <h3 className="text-2xl font-bold text-white mb-4">
-                            Нефть и газ
+                            {translations.energy.title}
                         </h3>
                         <p className="text-white/70 leading-relaxed">
-                            Предиктивная аналитика, оптимизация добычи и мониторинг оборудования
+                            {translations.energy.description}
                         </p>
                     </div>
                 </div>
@@ -63,3 +116,5 @@ export default function Solutions() {
         </section>
     )
 }
+
+export default Solutions

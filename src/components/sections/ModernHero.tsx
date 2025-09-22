@@ -1,9 +1,144 @@
 'use client'
 
 import React from 'react'
+import { useTranslation } from '@/components/providers/I18nProvider'
 import { Button } from '@/components/ui/Button'
 
 const ModernHero: React.FC = () => {
+    const { t, locale } = useTranslation()
+
+    // Функция для безопасного получения переводов с fallback
+    const getString = (key: string, fallback: string): string => {
+        const value = t(key, 'hero')
+        return (typeof value === 'string' && value !== key) ? value : fallback
+    }
+
+    const getArray = (key: string, fallback: string[]): string[] => {
+        const value = t(key, 'hero')
+        return Array.isArray(value) ? value : fallback
+    }
+
+    // Переводы с fallback значениями
+    const getTranslations = () => {
+        if (locale === 'en') {
+            return {
+                badge: getString('badge_text', 'Revolution in Corporate Solutions'),
+                title: {
+                    line1: getString('title.line1', 'Artificial'),
+                    line2: getString('title.line2', 'Intelligence'),
+                    line3: getString('title.line3', 'for Business')
+                },
+                subtitle: getString('subtitle', 'We create intelligent solutions that transform how Kyrgyzstan\'s largest companies work'),
+                buttons: {
+                    startProject: getString('cta_primary', 'Start Project'),
+                    viewCases: getString('cta_secondary', 'View Cases')
+                },
+                metrics: {
+                    projects: {
+                        value: getString('metrics.projects.value', '50+'),
+                        label: getString('metrics.projects.label', 'Projects')
+                    },
+                    savings: {
+                        value: getString('metrics.savings.value', '$10M+'),
+                        label: getString('metrics.savings.label', 'Client Savings')
+                    },
+                    uptime: {
+                        value: getString('metrics.uptime.value', '99.9%'),
+                        label: getString('metrics.uptime.label', 'Uptime')
+                    },
+                    experts: {
+                        value: getString('metrics.experts.value', '25+'),
+                        label: getString('metrics.experts.label', 'Experts')
+                    }
+                },
+                features: getArray('features', [
+                    'Rapid deployment in 1-3 months',
+                    'Guaranteed return on investment',
+                    '24/7 support',
+                    'Integration with any systems'
+                ])
+            }
+        } else if (locale === 'ky') {
+            return {
+                badge: getString('badge_text', 'Корпоративдик чечимдердеги революция'),
+                title: {
+                    line1: getString('title.line1', 'Жасалма'),
+                    line2: getString('title.line2', 'интеллект'),
+                    line3: getString('title.line3', 'бизнес үчүн')
+                },
+                subtitle: getString('subtitle', 'Кыргызстандын эң ири компанияларынын иштөө ыкмаларын өзгөрткөн акылдуу чечимдерди түзөбүз'),
+                buttons: {
+                    startProject: getString('cta_primary', 'Долбоорду баштоо'),
+                    viewCases: getString('cta_secondary', 'Мисалдарды көрүү')
+                },
+                metrics: {
+                    projects: {
+                        value: getString('metrics.projects.value', '50+'),
+                        label: getString('metrics.projects.label', 'Долбоор')
+                    },
+                    savings: {
+                        value: getString('metrics.savings.value', '$10M+'),
+                        label: getString('metrics.savings.label', 'Кардарлардын үнөмү')
+                    },
+                    uptime: {
+                        value: getString('metrics.uptime.value', '99.9%'),
+                        label: getString('metrics.uptime.label', 'Жумуштоо убактысы')
+                    },
+                    experts: {
+                        value: getString('metrics.experts.value', '25+'),
+                        label: getString('metrics.experts.label', 'Адис')
+                    }
+                },
+                features: getArray('features', [
+                    '1-3 ай ичинде тез орнотуу',
+                    'Кайтарымдуулук кепилдиги',
+                    'Түнкү күндүзгү колдоо',
+                    'Кайсы болбосун система менен интеграция'
+                ])
+            }
+        } else {
+            return {
+                badge: getString('badge_text', 'Революция в корпоративных решениях'),
+                title: {
+                    line1: getString('title.line1', 'Искусственный'),
+                    line2: getString('title.line2', 'интеллект'),
+                    line3: getString('title.line3', 'для бизнеса')
+                },
+                subtitle: getString('subtitle', 'Создаем интеллектуальные решения, которые трансформируют способ работы крупнейших компаний Кыргызстана'),
+                buttons: {
+                    startProject: getString('cta_primary', 'Начать проект'),
+                    viewCases: getString('cta_secondary', 'Посмотреть кейсы')
+                },
+                metrics: {
+                    projects: {
+                        value: getString('metrics.projects.value', '50+'),
+                        label: getString('metrics.projects.label', 'Проектов')
+                    },
+                    savings: {
+                        value: getString('metrics.savings.value', '$10M+'),
+                        label: getString('metrics.savings.label', 'Экономии клиентов')
+                    },
+                    uptime: {
+                        value: getString('metrics.uptime.value', '99.9%'),
+                        label: getString('metrics.uptime.label', 'Аптайм')
+                    },
+                    experts: {
+                        value: getString('metrics.experts.value', '25+'),
+                        label: getString('metrics.experts.label', 'Экспертов')
+                    }
+                },
+                features: getArray('features', [
+                    'Быстрое внедрение за 1-3 месяца',
+                    'Гарантированная окупаемость',
+                    'Круглосуточная поддержка',
+                    'Интеграция с любыми системами'
+                ])
+            }
+        }
+    }
+
+    const translations = getTranslations()
+
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20">
             {/* Background Pattern */}
@@ -26,25 +161,23 @@ const ModernHero: React.FC = () => {
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 shadow-sm mb-8">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    Революция в корпоративных решениях
+                    {translations.badge}
                 </div>
 
                 {/* Main Heading */}
                 <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight leading-tight">
-                    Искусственный
+                    {translations.title.line1}
                     <br />
                     <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-blue-400 bg-clip-text text-transparent">
-                        интеллект
+                        {translations.title.line2}
                     </span>
                     <br />
-                    для бизнеса
+                    {translations.title.line3}
                 </h1>
 
                 {/* Subtitle */}
                 <p className="text-xl md:text-2xl text-white/70 max-w-4xl mx-auto mb-12 leading-relaxed font-light">
-                    Создаем интеллектуальные решения, которые трансформируют
-                    <br className="hidden md:block" />
-                    способ работы крупнейших компаний Кыргызстана
+                    {translations.subtitle}
                 </p>
 
                 {/* CTA Buttons */}
@@ -54,7 +187,7 @@ const ModernHero: React.FC = () => {
                         size="xl"
                         className="hover:scale-105 transform transition-all duration-300 bg-blue-600 hover:bg-blue-700 shadow-xl"
                     >
-                        Начать проект →
+                        {translations.buttons.startProject} →
                     </Button>
 
                     <Button
@@ -62,31 +195,43 @@ const ModernHero: React.FC = () => {
                         size="xl"
                         className="hover:scale-105 transform transition-all duration-300 border-white/20 text-white hover:bg-white/10"
                     >
-                        Посмотреть кейсы
+                        {translations.buttons.viewCases}
                     </Button>
                 </div>
 
                 {/* Trust Indicators */}
                 <div className="flex flex-wrap items-center justify-center gap-12 text-white/60">
                     <div className="text-center">
-                        <div className="text-2xl font-bold text-white">50+</div>
-                        <div className="text-sm">Проектов</div>
+                        <div className="text-2xl font-bold text-white">{translations.metrics.projects.value}</div>
+                        <div className="text-sm">{translations.metrics.projects.label}</div>
                     </div>
                     <div className="w-px h-8 bg-white/20" />
                     <div className="text-center">
-                        <div className="text-2xl font-bold text-white">$10M+</div>
-                        <div className="text-sm">Экономии клиентов</div>
+                        <div className="text-2xl font-bold text-white">{translations.metrics.savings.value}</div>
+                        <div className="text-sm">{translations.metrics.savings.label}</div>
                     </div>
                     <div className="w-px h-8 bg-white/20" />
                     <div className="text-center">
-                        <div className="text-2xl font-bold text-white">99.9%</div>
-                        <div className="text-sm">Аптайм</div>
+                        <div className="text-2xl font-bold text-white">{translations.metrics.uptime.value}</div>
+                        <div className="text-sm">{translations.metrics.uptime.label}</div>
                     </div>
                     <div className="w-px h-8 bg-white/20" />
                     <div className="text-center">
-                        <div className="text-2xl font-bold text-white">25+</div>
-                        <div className="text-sm">Экспертов</div>
+                        <div className="text-2xl font-bold text-white">{translations.metrics.experts.value}</div>
+                        <div className="text-sm">{translations.metrics.experts.label}</div>
                     </div>
+                </div>
+
+                {/* Features List */}
+                <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    {translations.features.map((feature: string, index: number) => (
+                        <div key={index} className="flex items-center justify-center gap-2 text-white/70 text-sm">
+                            <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                            {feature}
+                        </div>
+                    ))}
                 </div>
             </div>
 

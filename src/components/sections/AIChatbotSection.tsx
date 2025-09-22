@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import { useTranslation } from '@/components/providers/I18nProvider'
 import { Button } from '@/components/ui/Button'
 
 interface Message {
@@ -18,43 +19,184 @@ interface QuickReply {
 }
 
 const AIChatbotSection: React.FC = () => {
+    const { t, locale } = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
     const [messages, setMessages] = useState<Message[]>([])
     const [inputText, setInputText] = useState('')
     const [isTyping, setIsTyping] = useState(false)
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
-    const quickReplies: QuickReply[] = [
-        {
-            id: '1',
-            text: 'Стоимость ИИ проекта',
-            response: 'Стоимость ИИ проекта зависит от многих факторов: типа задачи, сложности, сроков и интеграций. Базовая стоимость начинается от $50,000 за 3 месяца разработки. Используйте наш калькулятор выше для точного расчета или свяжитесь с нами для персональной консультации.'
-        },
-        {
-            id: '2',
-            text: 'Сроки разработки',
-            response: 'Типичные сроки разработки ИИ-решений:\n• Простые чат-боты: 1-2 месяца\n• Аналитические системы: 3-4 месяца\n• Сложные ML модели: 4-6 месяцев\n• Энтерпрайз решения: 6-12 месяцев\n\nТочные сроки зависят от ваших требований и готовности данных.'
-        },
-        {
-            id: '3',
-            text: 'Какие технологии используете',
-            response: 'Мы работаем с передовыми технологиями ИИ:\n• Machine Learning: TensorFlow, PyTorch, Scikit-learn\n• NLP: OpenAI GPT, Transformers, spaCy\n• Computer Vision: OpenCV, YOLO, ResNet\n• Big Data: Apache Spark, Kafka, Elasticsearch\n• Cloud: AWS, Google Cloud, Azure\n\nВыбираем оптимальный стек под каждую задачу.'
-        },
-        {
-            id: '4',
-            text: 'Примеры ваших работ',
-            response: 'У нас более 50 успешных проектов:\n• Кредитный скоринг для Демир Банка (+35% точности)\n• Цифровые госуслуги для Минцифры (+60% скорости)\n• Антифрод система для KICB (98.5% точности)\n• Предиктивное обслуживание для КыргызГаз (-45% аварий)\n\nПосмотрите полное портфолио в галерее работ выше.'
+    // Переводы с поддержкой всех языков
+    const getTranslations = () => {
+        if (locale === 'en') {
+            return {
+                badge: 'AI Assistant',
+                title: 'Ask Our AI Assistant',
+                subtitle: 'Get instant answers about our services, pricing, and AI capabilities for your business',
+                demoTitle: 'Chatbot Demo',
+                openChatbot: 'Open Chatbot',
+                placeholder: 'Type your question...',
+                headerTitle: 'AI Assistant',
+                headerStatus: 'Online • Responds quickly',
+                features: [
+                    { title: 'Instant Answers', description: 'Get answers to questions 24/7 without waiting' },
+                    { title: 'Smart Advice', description: 'Personalized recommendations for your business' },
+                    { title: 'Always With You', description: 'Works on all devices and platforms' }
+                ]
+            }
+        } else if (locale === 'ky') {
+            return {
+                badge: 'ИИ Жардамчы',
+                title: 'Биздин ИИ жардамчыдан сураңыз',
+                subtitle: 'Биздин кызматтар, баалар жана бизнесиңиз үчүн ИИ мүмкүнчүлүктөрү жөнүндө тез жооп алыңыз',
+                demoTitle: 'Чат-бот демонстрациясы',
+                openChatbot: 'Чат-ботту ачуу',
+                placeholder: 'Суракыңызды жазыңыз...',
+                headerTitle: 'ИИ Жардамчы',
+                headerStatus: 'Онлайн • Тез жооп берет',
+                features: [
+                    { title: 'Тез жооптор', description: '24/7 күтүүсүз суракка жооп алыңыз' },
+                    { title: 'Акылдуу кеңештер', description: 'Бизнесиңиз үчүн жекелештирилген сунуштамалар' },
+                    { title: 'Дайыма сиз менен', description: 'Бардык түзүлүштөрдө жана платформаларда иштейт' }
+                ]
+            }
+        } else {
+            return {
+                badge: 'ИИ Ассистент',
+                title: 'Задайте вопрос нашему ИИ-боту',
+                subtitle: 'Получите мгновенные ответы о наших услугах, ценах и возможностях ИИ для вашего бизнеса',
+                demoTitle: 'Демонстрация чат-бота',
+                openChatbot: 'Открыть чат-бот',
+                placeholder: 'Напишите ваш вопрос...',
+                headerTitle: 'ИИ Ассистент',
+                headerStatus: 'Онлайн • Отвечает быстро',
+                features: [
+                    { title: 'Мгновенные ответы', description: 'Получайте ответы на вопросы 24/7 без ожидания' },
+                    { title: 'Умные советы', description: 'Персонализированные рекомендации для вашего бизнеса' },
+                    { title: 'Везде с вами', description: 'Работает на всех устройствах и платформах' }
+                ]
+            }
         }
-    ]
+    }
 
-    const botResponses: { [key: string]: string } = {
-        'привет': 'Привет! Я ИИ-ассистент ФискалеПро. Помогу ответить на вопросы о наших услугах и решениях искусственного интеллекта.',
-        'услуги': 'Мы предоставляем:\n• Разработку ИИ-решений под заказ\n• Аналитику больших данных\n• Автоматизацию бизнес-процессов\n• Интеграцию с существующими системами\n• Техническую поддержку 24/7',
-        'цена': 'Стоимость проектов начинается от $50,000. Используйте калькулятор выше для расчета или оставьте заявку для персональной консультации.',
-        'контакты': 'Свяжитесь с нами:\n📧 info@fiscalepro.kg\n📞 +996 312 123-456\n🏢 г. Бишкек, ул. Киевская 123\n\nИли заполните форму обратной связи на сайте.',
-        'команда': 'В нашей команде 25+ экспертов:\n• ML-инженеры\n• Data Scientists\n• Backend/Frontend разработчики\n• DevOps инженеры\n• Бизнес-аналитики\n\nСредний опыт команды - 7+ лет в ИИ.',
-        'время': 'Обычно отвечаем в течение 15 минут в рабочее время (9:00-18:00). Для срочных вопросов звоните по телефону.',
-        'поддержка': 'Предоставляем несколько уровней поддержки:\n• Базовая (email)\n• Стандартная (8/5)\n• Премиум (24/7)\n• Корпоративная (выделенная команда)\n\nСтоимость от 5% до 15% от стоимости проекта.'
+    const translations = getTranslations()
+
+    // Быстрые ответы для разных языков
+    const getQuickReplies = (): QuickReply[] => {
+        if (locale === 'en') {
+            return [
+                {
+                    id: '1',
+                    text: 'AI Project Cost',
+                    response: 'AI project cost depends on many factors: task type, complexity, timeline, and integrations. Base cost starts from $50,000 for 3 months of development. Use our calculator above for precise calculation or contact us for personal consultation.'
+                },
+                {
+                    id: '2',
+                    text: 'Development Timeline',
+                    response: 'Typical AI solution development timelines:\n• Simple chatbots: 1-2 months\n• Analytics systems: 3-4 months\n• Complex ML models: 4-6 months\n• Enterprise solutions: 6-12 months\n\nExact timelines depend on your requirements and data readiness.'
+                },
+                {
+                    id: '3',
+                    text: 'What Technologies Do You Use',
+                    response: 'We work with cutting-edge AI technologies:\n• Machine Learning: TensorFlow, PyTorch, Scikit-learn\n• NLP: OpenAI GPT, Transformers, spaCy\n• Computer Vision: OpenCV, YOLO, ResNet\n• Big Data: Apache Spark, Kafka, Elasticsearch\n• Cloud: AWS, Google Cloud, Azure\n\nWe choose optimal stack for each task.'
+                },
+                {
+                    id: '4',
+                    text: 'Examples of Your Work',
+                    response: 'We have 50+ successful projects:\n• Credit scoring for Demir Bank (+35% accuracy)\n• Digital gov services for MinDigital (+60% speed)\n• Anti-fraud system for KICB (98.5% accuracy)\n• Predictive maintenance for KyrgyzGaz (-45% failures)\n\nView complete portfolio in our work gallery above.'
+                }
+            ]
+        } else if (locale === 'ky') {
+            return [
+                {
+                    id: '1',
+                    text: 'ИИ долбоорунун наркы',
+                    response: 'ИИ долбоорунун наркы көп факторлордон көз каранды: тапшырманын түрү, татаалдуулугу, мөөнөттөрү жана интеграциялар. Негизги наркы 3 айлык иштеп чыгуу үчүн $50,000дон башталат. так эсептөө үчүн жогорудагы калькуляторду колдонуңуз же жеке консультация үчүн биз менен байланышыңыз.'
+                },
+                {
+                    id: '2',
+                    text: 'Иштеп чыгуу мөөнөттөрү',
+                    response: 'ИИ чечимдерин иштеп чыгуунун типтүү мөөнөттөрү:\n• Жөнөкөй чат-боттор: 1-2 ай\n• Аналитикалык системалар: 3-4 ай\n• Татаал ML моделдер: 4-6 ай\n• Корпоративдик чечимдер: 6-12 ай\n\nТак мөөнөттөр талаптарыңызга жана маалыматтардын даярдыгына көз каранды.'
+                },
+                {
+                    id: '3',
+                    text: 'Кандай технологияларды колдоносуздар',
+                    response: 'Биз алдыңкы ИИ технологиялары менен иштейбиз:\n• Machine Learning: TensorFlow, PyTorch, Scikit-learn\n• NLP: OpenAI GPT, Transformers, spaCy\n• Computer Vision: OpenCV, YOLO, ResNet\n• Big Data: Apache Spark, Kafka, Elasticsearch\n• Cloud: AWS, Google Cloud, Azure\n\nАр бир тапшырма үчүн эң жакшы стекти тандайбыз.'
+                },
+                {
+                    id: '4',
+                    text: 'Ишиңиздин мисалдары',
+                    response: 'Бизде 50дон ашык ийгиликтүү долбоорлор бар:\n• Демир Банк үчүн кредиттик скоринг (+35% тактык)\n• Минцифра үчүн санариптик мамлекеттик кызматтар (+60% ылдамдык)\n• KICB үчүн антифрод система (98.5% тактык)\n• КыргызГаз үчүн алдын ала тейлөө (-45% авариялар)\n\nТолук портфолиону жогорудагы иштер галереясынан көрүңүз.'
+                }
+            ]
+        } else {
+            return [
+                {
+                    id: '1',
+                    text: 'Стоимость ИИ проекта',
+                    response: 'Стоимость ИИ проекта зависит от многих факторов: типа задачи, сложности, сроков и интеграций. Базовая стоимость начинается от $50,000 за 3 месяца разработки. Используйте наш калькулятор выше для точного расчета или свяжитесь с нами для персональной консультации.'
+                },
+                {
+                    id: '2',
+                    text: 'Сроки разработки',
+                    response: 'Типичные сроки разработки ИИ-решений:\n• Простые чат-боты: 1-2 месяца\n• Аналитические системы: 3-4 месяца\n• Сложные ML модели: 4-6 месяцев\n• Энтерпрайз решения: 6-12 месяцев\n\nТочные сроки зависят от ваших требований и готовности данных.'
+                },
+                {
+                    id: '3',
+                    text: 'Какие технологии используете',
+                    response: 'Мы работаем с передовыми технологиями ИИ:\n• Machine Learning: TensorFlow, PyTorch, Scikit-learn\n• NLP: OpenAI GPT, Transformers, spaCy\n• Computer Vision: OpenCV, YOLO, ResNet\n• Big Data: Apache Spark, Kafka, Elasticsearch\n• Cloud: AWS, Google Cloud, Azure\n\nВыбираем оптимальный стек под каждую задачу.'
+                },
+                {
+                    id: '4',
+                    text: 'Примеры ваших работ',
+                    response: 'У нас более 50 успешных проектов:\n• Кредитный скоринг для Демир Банка (+35% точности)\n• Цифровые госуслуги для Минцифры (+60% скорости)\n• Антифрод система для KICB (98.5% точности)\n• Предиктивное обслуживание для КыргызГаз (-45% аварий)\n\nПосмотрите полное портфолио в галерее работ выше.'
+                }
+            ]
+        }
+    }
+
+    const quickReplies = getQuickReplies()
+
+    // Ответы бота для разных языков
+    const getBotResponses = (): { [key: string]: string } => {
+        if (locale === 'en') {
+            return {
+                'hello': 'Hello! I\'m the AI assistant of FiscalePro. I help answer questions about our AI services and solutions.',
+                'services': 'We provide:\n• Custom AI solution development\n• Big data analytics\n• Business process automation\n• Integration with existing systems\n• 24/7 technical support',
+                'price': 'Project costs start from $50,000. Use the calculator above or contact us for personal consultation.',
+                'contacts': 'Contact us:\n📧 info@fiscalepro.kg\n📞 +996 312 123-456\n🏢 Bishkek, Kievskaya str. 123\n\nOr fill out the contact form on our website.',
+                'team': 'Our team has 25+ experts:\n• ML Engineers\n• Data Scientists\n• Backend/Frontend Developers\n• DevOps Engineers\n• Business Analysts\n\nAverage team experience - 7+ years in AI.'
+            }
+        } else if (locale === 'ky') {
+            return {
+                'салам': 'Салам! Мен ФискалеПронун ИИ жардамчысымын. Биздин ИИ кызматтары жана чечимдери жөнүндө суракка жооп берүүгө жардам берем.',
+                'кызматтар': 'Биз сунуштайбыз:\n• Буйрутма боюнча ИИ чечимдерин иштеп чыгуу\n• Чоң маалыматтарды талдоо\n• Бизнес процесстерди автоматташтыруу\n• Учурдагы системалар менен интеграция\n• 24/7 техникалык колдоо',
+                'баа': 'Долбоорлордун баасы $50,000дон башталат. Жогорудагы калькуляторду колдонуңуз же жеке консультация үчүн биз менен байланышыңыз.',
+                'байланыш': 'Биз менен байланыш:\n📧 info@fiscalepro.kg\n📞 +996 312 123-456\n🏢 Бишкек ш., Киев көч. 123\n\nЖе сайттагы байланыш формасын толтуруңуз.',
+                'команда': 'Биздин командада 25+ эксперт бар:\n• ML инженерлер\n• Маалымат окумуштуулары\n• Backend/Frontend өнүктүрүүчүлөр\n• DevOps инженерлер\n• Бизнес аналитиктер\n\nКомандынын орточо тажрыйбасы - ИИда 7+ жыл.'
+            }
+        } else {
+            return {
+                'привет': 'Привет! Я ИИ-ассистент ФискалеПро. Помогу ответить на вопросы о наших услугах и решениях искусственного интеллекта.',
+                'услуги': 'Мы предоставляем:\n• Разработку ИИ-решений под заказ\n• Аналитику больших данных\n• Автоматизацию бизнес-процессов\n• Интеграцию с существующими системами\n• Техническую поддержку 24/7',
+                'цена': 'Стоимость проектов начинается от $50,000. Используйте калькулятор выше или оставьте заявку для персональной консультации.',
+                'контакты': 'Свяжитесь с нами:\n📧 info@fiscalepro.kg\n📞 +996 312 123-456\n🏢 г. Бишкек, ул. Киевская 123\n\nИли заполните форму обратной связи на сайте.',
+                'команда': 'В нашей команде 25+ экспертов:\n• ML-инженеры\n• Data Scientists\n• Backend/Frontend разработчики\n• DevOps инженеры\n• Бизнес-аналитики\n\nСредний опыт команды - 7+ лет в ИИ.'
+            }
+        }
+    }
+
+    const botResponses = getBotResponses()
+
+    // Приветствие для разных языков
+    const getGreeting = (): string => {
+        if (locale === 'en') {
+            return 'Hello! I\'m the AI assistant of FiscalePro. I help answer questions about our AI services and solutions. How can I help you?'
+        } else if (locale === 'ky') {
+            return 'Салам! Мен ФискалеПронун ИИ жардамчысымын. Биздин ИИ кызматтары жана чечимдери жөнүндө суракка жооп берүүгө жардам берем. Кантип жардам бере алам?'
+        } else {
+            return 'Здравствуйте! Я ИИ-ассистент ФискалеПро. Помогу ответить на вопросы о наших услугах в области искусственного интеллекта. Чем могу помочь?'
+        }
     }
 
     const getRandomDelay = () => Math.random() * 1000 + 500
@@ -79,31 +221,47 @@ const AIChatbotSection: React.FC = () => {
             }
         }
 
-        // Fallback responses
-        if (message.includes('помощь') || message.includes('помоги')) {
-            return 'Конечно! Я могу рассказать о наших услугах, ценах, сроках разработки и портфолио. Что именно вас интересует?'
+        // Универсальные ответы для всех языков
+        if (message.includes('помощь') || message.includes('помоги') || message.includes('help') || message.includes('жардам')) {
+            if (locale === 'en') {
+                return 'Of course! I can tell you about our services, prices, development timelines, and portfolio. What specifically interests you?'
+            } else if (locale === 'ky') {
+                return 'Албетте! Мен биздин кызматтар, баалар, иштеп чыгуу мөөнөттөрү жана портфолио жөнүндө айта алам. Сизди кандай маселе кызыктырат?'
+            } else {
+                return 'Конечно! Я могу рассказать о наших услугах, ценах, сроках разработки и портфолио. Что именно вас интересует?'
+            }
         }
 
-        if (message.includes('спасибо')) {
-            return 'Пожалуйста! Если у вас есть еще вопросы - обращайтесь. Готов помочь с выбором ИИ-решения для вашего бизнеса.'
+        if (message.includes('спасибо') || message.includes('thanks') || message.includes('рахмат')) {
+            if (locale === 'en') {
+                return 'You\'re welcome! If you have more questions - feel free to ask. Ready to help you choose an AI solution for your business.'
+            } else if (locale === 'ky') {
+                return 'Кайрылык эмес! Дагы суракыңыз болсо - сураңыз. Бизнесиңиз үчүн ИИ чечимин тандоого жардам берүүгө даярмын.'
+            } else {
+                return 'Пожалуйста! Если у вас есть еще вопросы - обращайтесь. Готов помочь с выбором ИИ-решения для вашего бизнеса.'
+            }
         }
 
-        return 'Интересный вопрос! Для получения детальной консультации рекомендую связаться с нашими специалистами по телефону +996 312 123-456 или заполнить форму на сайте.'
+        // Fallback ответ
+        if (locale === 'en') {
+            return 'Interesting question! For detailed consultation, I recommend contacting our specialists at +996 312 123-456 or filling out the form on our website.'
+        } else if (locale === 'ky') {
+            return 'Кызыктуу сурак! Толук консультация алуу үчүн адистерибиз менен +996 312 123-456 аркылуу байланышууну же сайтыбыздагы форманы толтурууну сунуштайм.'
+        } else {
+            return 'Интересный вопрос! Для получения детальной консультации рекомендую связаться с нашими специалистами по телефону +996 312 123-456 или заполнить форму на сайте.'
+        }
     }
 
     const handleSendMessage = async () => {
         if (!inputText.trim()) return
 
-        // Add user message
         addMessage(inputText, 'user')
         const userMessage = inputText
         setInputText('')
 
-        // Show typing indicator
         setIsTyping(true)
         await new Promise(resolve => setTimeout(resolve, getRandomDelay()))
 
-        // Add bot response
         const response = findBotResponse(userMessage)
         setIsTyping(false)
         addMessage(response, 'bot')
@@ -129,42 +287,37 @@ const AIChatbotSection: React.FC = () => {
 
     useEffect(() => {
         if (isOpen && messages.length === 0) {
-            // Welcome message
             setTimeout(() => {
-                addMessage('Здравствуйте! Я ИИ-ассистент ФискалеПро. Помогу ответить на вопросы о наших услугах в области искусственного интеллекта. Чем могу помочь?', 'bot')
+                addMessage(getGreeting(), 'bot')
             }, 500)
         }
-    }, [isOpen])
+    }, [isOpen, locale])
 
     return (
-        <section className="py-24 bg-slate-900/30 relative overflow-hidden">
-            {/* Background Elements */}
+        <section id="chatbot" className="py-24 bg-slate-900/30 relative overflow-hidden">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/3 left-16 w-64 h-64 bg-green-500/5 rounded-full blur-3xl" />
                 <div className="absolute bottom-1/3 right-16 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl" />
             </div>
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
-                {/* Header */}
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 shadow-sm mb-6">
                         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                        ИИ Ассистент
+                        {translations.badge}
                     </div>
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        Задайте вопрос нашему ИИ-боту
+                        {translations.title}
                     </h2>
                     <p className="text-xl text-white/70 max-w-3xl mx-auto">
-                        Получите мгновенные ответы о наших услугах, ценах и возможностях ИИ для вашего бизнеса
+                        {translations.subtitle}
                     </p>
                 </div>
 
                 <div className="max-w-4xl mx-auto">
-                    {/* Demo Preview */}
                     <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 mb-8">
-                        <h3 className="text-2xl font-bold text-white mb-6 text-center">Демонстрация чат-бота</h3>
+                        <h3 className="text-2xl font-bold text-white mb-6 text-center">{translations.demoTitle}</h3>
 
-                        {/* Quick Actions */}
                         <div className="grid md:grid-cols-2 gap-4 mb-8">
                             {quickReplies.map((reply) => (
                                 <button
@@ -183,17 +336,17 @@ const AIChatbotSection: React.FC = () => {
                                         </div>
                                         <div className="flex-1">
                                             <div className="text-white font-medium">{reply.text}</div>
-                                            <div className="text-white/60 text-sm">Нажмите для примера</div>
+                                            <div className="text-white/60 text-sm">
+                                                {locale === 'en' ? 'Click for example' :
+                                                    locale === 'ky' ? 'Мисал үчүн басыңыз' :
+                                                        'Нажмите для примера'}
+                                            </div>
                                         </div>
-                                        <svg className="w-5 h-5 text-white/40 group-hover:text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
                                     </div>
                                 </button>
                             ))}
                         </div>
 
-                        {/* CTA */}
                         <div className="text-center">
                             <Button
                                 onClick={() => setIsOpen(true)}
@@ -201,42 +354,35 @@ const AIChatbotSection: React.FC = () => {
                                 size="lg"
                                 className="bg-blue-600 hover:bg-blue-700 text-lg px-8"
                             >
-                                Открыть чат-бот
+                                {translations.openChatbot}
                             </Button>
                         </div>
                     </div>
 
-                    {/* Features */}
                     <div className="grid md:grid-cols-3 gap-6">
-                        <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                            <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                                <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                </svg>
+                        {translations.features.map((feature, index) => (
+                            <div key={index} className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                                <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                    {index === 0 && (
+                                        <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                        </svg>
+                                    )}
+                                    {index === 1 && (
+                                        <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                        </svg>
+                                    )}
+                                    {index === 2 && (
+                                        <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                        </svg>
+                                    )}
+                                </div>
+                                <h4 className="text-lg font-bold text-white mb-2">{feature.title}</h4>
+                                <p className="text-white/60 text-sm">{feature.description}</p>
                             </div>
-                            <h4 className="text-lg font-bold text-white mb-2">Мгновенные ответы</h4>
-                            <p className="text-white/60 text-sm">Получайте ответы на вопросы 24/7 без ожидания</p>
-                        </div>
-
-                        <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                            <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                                <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                </svg>
-                            </div>
-                            <h4 className="text-lg font-bold text-white mb-2">Умные советы</h4>
-                            <p className="text-white/60 text-sm">Персонализированные рекомендации для вашего бизнеса</p>
-                        </div>
-
-                        <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                            <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                                <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <h4 className="text-lg font-bold text-white mb-2">Везде с вами</h4>
-                            <p className="text-white/60 text-sm">Работает на всех устройствах и платформах</p>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -244,7 +390,6 @@ const AIChatbotSection: React.FC = () => {
             {/* Chat Widget */}
             {isOpen && (
                 <div className="fixed bottom-6 right-6 w-96 h-[600px] bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl z-50 flex flex-col overflow-hidden">
-                    {/* Header */}
                     <div className="flex items-center justify-between p-4 border-b border-white/10 bg-gradient-to-r from-blue-600 to-violet-600">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
@@ -253,8 +398,8 @@ const AIChatbotSection: React.FC = () => {
                                 </svg>
                             </div>
                             <div>
-                                <div className="text-white font-medium">ИИ Ассистент</div>
-                                <div className="text-white/70 text-xs">Онлайн • Отвечает быстро</div>
+                                <div className="text-white font-medium">{translations.headerTitle}</div>
+                                <div className="text-white/70 text-xs">{translations.headerStatus}</div>
                             </div>
                         </div>
                         <button
@@ -267,7 +412,6 @@ const AIChatbotSection: React.FC = () => {
                         </button>
                     </div>
 
-                    {/* Messages */}
                     <div className="flex-1 overflow-y-auto p-4 space-y-4">
                         {messages.map((message) => (
                             <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -301,7 +445,6 @@ const AIChatbotSection: React.FC = () => {
                         <div ref={messagesEndRef} />
                     </div>
 
-                    {/* Input */}
                     <div className="p-4 border-t border-white/10">
                         <div className="flex gap-2">
                             <input
@@ -309,7 +452,7 @@ const AIChatbotSection: React.FC = () => {
                                 value={inputText}
                                 onChange={(e) => setInputText(e.target.value)}
                                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                                placeholder="Напишите ваш вопрос..."
+                                placeholder={translations.placeholder}
                                 className="flex-1 px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                             />
                             <button
@@ -326,7 +469,6 @@ const AIChatbotSection: React.FC = () => {
                 </div>
             )}
 
-            {/* Floating Chat Button */}
             {!isOpen && (
                 <button
                     onClick={() => setIsOpen(true)}

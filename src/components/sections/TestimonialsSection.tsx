@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { useTranslation, Locale } from '@/components/providers/I18nProvider'
 
 interface Testimonial {
     id: number
@@ -14,50 +15,198 @@ interface Testimonial {
 }
 
 const TestimonialsSection: React.FC = () => {
+    const { t, locale } = useTranslation()
     const [currentSlide, setCurrentSlide] = useState(0)
 
-    const testimonials: Testimonial[] = [
-        {
-            id: 1,
-            name: "Алмаз Сыдыков",
-            position: "Директор по IT",
-            company: "Демир Банк",
-            content: "ФискалеПро полностью трансформировала наши процессы кредитного скоринга. Точность оценки рисков выросла на 35%, а время обработки заявок сократилось в 3 раза. Невероятные результаты за такой короткий срок внедрения.",
-            avatar: "AS",
-            rating: 5,
-            project: "Система кредитного скоринга"
-        },
-        {
-            id: 2,
-            name: "Гульнара Токтосунова",
-            position: "Заместитель председателя",
-            company: "Министерство цифрового развития КР",
-            content: "Автоматизация обработки обращений граждан с помощью ИИ позволила увеличить скорость рассмотрения на 60%. Качество и прозрачность государственных услуг вышли на новый уровень.",
-            avatar: "ГТ",
-            rating: 5,
-            project: "Цифровые госуслуги"
-        },
-        {
-            id: 3,
-            name: "Мирлан Жапаров",
-            position: "Генеральный директор",
-            company: "КыргызГаз",
-            content: "Предиктивная аналитика для обслуживания газопроводов снизила аварийные ситуации на 45% и сэкономила нам более $2М в год. Команда ФискалеПро - настоящие профессионалы своего дела.",
-            avatar: "МЖ",
-            rating: 5,
-            project: "Предиктивное обслуживание"
-        },
-        {
-            id: 4,
-            name: "Айгуль Омурзакова",
-            position: "Финансовый директор",
-            company: "KICB",
-            content: "ИИ-система для определения мошеннических операций работает круглосуточно и блокирует 98% подозрительных транзакций. Потери от мошенничества снизились в 8 раз.",
-            avatar: "АО",
-            rating: 5,
-            project: "Антифрод система"
+    // Функция для получения переводов с fallback значениями
+    const getTranslations = () => {
+        if (locale === 'en') {
+            return {
+                title: 'Results Speak for Themselves',
+                subtitle: 'Over 50 successful projects for leading companies and organizations in Kyrgyzstan',
+                badge: 'Our Client Reviews',
+                navigation: {
+                    prev: 'Previous',
+                    next: 'Next'
+                },
+                stats: [
+                    { value: '50+', label: 'Satisfied Clients' },
+                    { value: '95%', label: 'Satisfaction' },
+                    { value: '24/7', label: 'Support' },
+                    { value: '15+', label: 'Years Experience' }
+                ]
+            }
+        } else if (locale === 'ky') {
+            return {
+                title: 'Натыйжалар өзү үчүн сүйлөйт',
+                subtitle: 'Кыргызстандын алдыңкы компаниялары жана уюмдары үчүн 50дөн ашык ийгиликтүү долбоор',
+                badge: 'Кардарлардын пикирлери',
+                navigation: {
+                    prev: 'Мурунку',
+                    next: 'Кийинки'
+                },
+                stats: [
+                    { value: '50+', label: 'Канааттанган кардар' },
+                    { value: '95%', label: 'Канааттануу' },
+                    { value: '24/7', label: 'Колдоо' },
+                    { value: '15+', label: 'Жыл тажрыйба' }
+                ]
+            }
+        } else {
+            return {
+                title: 'Результаты говорят за нас',
+                subtitle: 'Более 50 успешных проектов для ведущих компаний и организаций Кыргызстана',
+                badge: 'Отзывы наших клиентов',
+                navigation: {
+                    prev: 'Предыдущий',
+                    next: 'Следующий'
+                },
+                stats: [
+                    { value: '50+', label: 'Довольных клиентов' },
+                    { value: '95%', label: 'Удовлетворенность' },
+                    { value: '24/7', label: 'Поддержка' },
+                    { value: '15+', label: 'Лет опыта' }
+                ]
+            }
         }
-    ]
+    }
+
+    // Данные отзывов с переводами
+    const getTestimonials = (): Testimonial[] => {
+        if (locale === 'en') {
+            return [
+                {
+                    id: 1,
+                    name: "Almaz Sydykov",
+                    position: "IT Director",
+                    company: "Demir Bank",
+                    content: "FiscalePro completely transformed our credit scoring processes. Risk assessment accuracy increased by 35%, and application processing time decreased by 3x. Incredible results in such a short implementation period.",
+                    avatar: "AS",
+                    rating: 5,
+                    project: "Credit Scoring System"
+                },
+                {
+                    id: 2,
+                    name: "Gulnara Toktosunova",
+                    position: "Deputy Chairperson",
+                    company: "Ministry of Digital Development KR",
+                    content: "Automating citizen request processing with AI increased review speed by 60%. The quality and transparency of government services have reached a new level.",
+                    avatar: "GT",
+                    rating: 5,
+                    project: "Digital Government Services"
+                },
+                {
+                    id: 3,
+                    name: "Mirlan Zhaparov",
+                    position: "General Director",
+                    company: "KyrgyzGas",
+                    content: "Predictive analytics for gas pipeline maintenance reduced emergency situations by 45% and saved us over $2M per year. The FiscalePro team are true professionals.",
+                    avatar: "MZ",
+                    rating: 5,
+                    project: "Predictive Maintenance"
+                },
+                {
+                    id: 4,
+                    name: "Aigul Omurzakova",
+                    position: "Financial Director",
+                    company: "KICB",
+                    content: "The AI system for detecting fraudulent operations works around the clock and blocks 98% of suspicious transactions. Fraud losses decreased 8-fold.",
+                    avatar: "AO",
+                    rating: 5,
+                    project: "Anti-fraud System"
+                }
+            ]
+        } else if (locale === 'ky') {
+            return [
+                {
+                    id: 1,
+                    name: "Алмаз Сыдыков",
+                    position: "IT директору",
+                    company: "Демир Банк",
+                    content: "ФискалеПро биздин кредиттик скоринг процесстерин толугу менен өзгөрттү. Тобокелдикти баалоонун тактыгы 35%га өстү, ал эми өтүнүчтөрдү иштетүү убактысы 3 эсе кыскарды. Мындай кыска орнотуу мезгилинде укмуштуудай натыйжалар.",
+                    avatar: "АС",
+                    rating: 5,
+                    project: "Кредиттик скоринг системасы"
+                },
+                {
+                    id: 2,
+                    name: "Гүлнара Токтосунова",
+                    position: "Төрага орун басары",
+                    company: "КРнын Санариптик өнүктүрүү министрлиги",
+                    content: "ИИ жардамы менен жарандардын кайрылууларын иштетүүнү автоматташтыруу карооонун ылдамдыгын 60%га жогорулатты. Мамлекеттик кызматтардын сапаты жана ачыктыгы жаңы деңгээлге чыкты.",
+                    avatar: "ГТ",
+                    rating: 5,
+                    project: "Санариптик мамкызматтар"
+                },
+                {
+                    id: 3,
+                    name: "Мирлан Жапаров",
+                    position: "Башкы директор",
+                    company: "КыргызГаз",
+                    content: "Газ түтүктөрүн тейлөө үчүн алдын ала аналитика авариялык кырдаалдарды 45%га азайтты жана бизге жылына $2Мдан ашык үнөмдөдү. ФискалеПро командасы - чыныгы кесипкөйлөр.",
+                    avatar: "МЖ",
+                    rating: 5,
+                    project: "Алдын ала тейлөө"
+                },
+                {
+                    id: 4,
+                    name: "Айгүл Омурзакова",
+                    position: "Каржы директору",
+                    company: "KICB",
+                    content: "Алдамчылык операцияларын аныктоо үчүн ИИ система түнү күндүз иштейт жана шектүү транзакциялардын 98%ын бөгөт коёт. Алдамчылыктан улам болгон чыгашалар 8 эсе азайды.",
+                    avatar: "АО",
+                    rating: 5,
+                    project: "Алдамчылыкка каршы система"
+                }
+            ]
+        } else {
+            return [
+                {
+                    id: 1,
+                    name: "Алмаз Сыдыков",
+                    position: "Директор по IT",
+                    company: "Демир Банк",
+                    content: "ФискалеПро полностью трансформировала наши процессы кредитного скоринга. Точность оценки рисков выросла на 35%, а время обработки заявок сократилось в 3 раза. Невероятные результаты за такой короткий срок внедрения.",
+                    avatar: "АС",
+                    rating: 5,
+                    project: "Система кредитного скоринга"
+                },
+                {
+                    id: 2,
+                    name: "Гульнара Токтосунова",
+                    position: "Заместитель председателя",
+                    company: "Министерство цифрового развития КР",
+                    content: "Автоматизация обработки обращений граждан с помощью ИИ позволила увеличить скорость рассмотрения на 60%. Качество и прозрачность государственных услуг вышли на новый уровень.",
+                    avatar: "ГТ",
+                    rating: 5,
+                    project: "Цифровые госуслуги"
+                },
+                {
+                    id: 3,
+                    name: "Мирлан Жапаров",
+                    position: "Генеральный директор",
+                    company: "КыргызГаз",
+                    content: "Предиктивная аналитика для обслуживания газопроводов снизила аварийные ситуации на 45% и сэкономила нам более $2М в год. Команда ФискалеПро - настоящие профессионалы своего дела.",
+                    avatar: "МЖ",
+                    rating: 5,
+                    project: "Предиктивное обслуживание"
+                },
+                {
+                    id: 4,
+                    name: "Айгуль Омурзакова",
+                    position: "Финансовый директор",
+                    company: "KICB",
+                    content: "ИИ-система для определения мошеннических операций работает круглосуточно и блокирует 98% подозрительных транзакций. Потери от мошенничества снизились в 8 раз.",
+                    avatar: "АО",
+                    rating: 5,
+                    project: "Антифрод система"
+                }
+            ]
+        }
+    }
+
+    const translations = getTranslations()
+    const testimonials = getTestimonials()
 
     const nextSlide = () => {
         setCurrentSlide((prev) => (prev + 1) % testimonials.length)
@@ -68,9 +217,9 @@ const TestimonialsSection: React.FC = () => {
     }
 
     useEffect(() => {
-        const timer = setInterval(nextSlide, 5000)
+        const timer = setInterval(nextSlide, 6000)
         return () => clearInterval(timer)
-    }, [])
+    }, [testimonials.length])
 
     const renderStars = (rating: number) => {
         return Array.from({ length: 5 }, (_, i) => (
@@ -86,7 +235,7 @@ const TestimonialsSection: React.FC = () => {
     }
 
     return (
-        <section className="py-24 bg-slate-800/30 relative overflow-hidden">
+        <section id="testimonials" className="py-24 bg-slate-800/30 relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/4 left-10 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
@@ -98,13 +247,13 @@ const TestimonialsSection: React.FC = () => {
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 shadow-sm mb-6">
                         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                        Отзывы наших клиентов
+                        {translations.badge}
                     </div>
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        Результаты говорят за нас
+                        {translations.title}
                     </h2>
                     <p className="text-xl text-white/70 max-w-3xl mx-auto">
-                        Более 50 успешных проектов для ведущих компаний и организаций Кыргызстана
+                        {translations.subtitle}
                     </p>
                 </div>
 
@@ -114,7 +263,7 @@ const TestimonialsSection: React.FC = () => {
                         <div className="flex flex-col md:flex-row gap-8 items-center">
                             {/* Avatar and Company Info */}
                             <div className="flex-shrink-0 text-center md:text-left">
-                                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-violet-600 rounded-full flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto md:mx-0">
+                                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-violet-600 rounded-full flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto md:mx-0 hover:scale-110 transition-transform duration-200">
                                     {testimonials[currentSlide].avatar}
                                 </div>
                                 <h3 className="text-xl font-bold text-white mb-1">
@@ -151,6 +300,7 @@ const TestimonialsSection: React.FC = () => {
                     <button
                         onClick={prevSlide}
                         className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110"
+                        aria-label={translations.navigation.prev}
                     >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -159,6 +309,7 @@ const TestimonialsSection: React.FC = () => {
                     <button
                         onClick={nextSlide}
                         className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110"
+                        aria-label={translations.navigation.next}
                     >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -176,6 +327,7 @@ const TestimonialsSection: React.FC = () => {
                                         ? 'bg-blue-500 scale-125'
                                         : 'bg-white/30 hover:bg-white/50'
                                 }`}
+                                aria-label={`${locale === 'en' ? 'Go to slide' : locale === 'ky' ? 'Слайдка өтүү' : 'Перейти к слайду'} ${index + 1}`}
                             />
                         ))}
                     </div>
@@ -183,21 +335,39 @@ const TestimonialsSection: React.FC = () => {
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto">
-                    <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                        <div className="text-3xl font-bold text-white mb-2">50+</div>
-                        <div className="text-white/60 text-sm">Довольных клиентов</div>
-                    </div>
-                    <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                        <div className="text-3xl font-bold text-white mb-2">95%</div>
-                        <div className="text-white/60 text-sm">Удовлетворенность</div>
-                    </div>
-                    <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                        <div className="text-3xl font-bold text-white mb-2">24/7</div>
-                        <div className="text-white/60 text-sm">Поддержка</div>
-                    </div>
-                    <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                        <div className="text-3xl font-bold text-white mb-2">15+</div>
-                        <div className="text-white/60 text-sm">Лет опыта</div>
+                    {translations.stats.map((stat, index) => (
+                        <div key={index} className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-200 hover:scale-105">
+                            <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
+                            <div className="text-white/60 text-sm">{stat.label}</div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* CTA Section */}
+                <div className="mt-16 text-center bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-2xl border border-blue-500/30 p-8">
+                    <h3 className="text-2xl font-bold text-white mb-4">
+                        {locale === 'en'
+                            ? "Ready to become our next success story?"
+                            : locale === 'ky'
+                                ? "Кийинки ийгиликтүү мисалыбыз болууга дайынсызбы?"
+                                : "Готовы стать следующим успешным кейсом?"
+                        }
+                    </h3>
+                    <p className="text-white/70 mb-6 max-w-2xl mx-auto">
+                        {locale === 'en'
+                            ? "Tell us about your challenges, and we'll show how AI can help your business"
+                            : locale === 'ky'
+                                ? "Тапшырмаларыңыз жөнүндө айтыңыз, ИИ сиздин бизнесиңизге кантип жардам бере тургандыгын көрсөтөбүз"
+                                : "Расскажите о своих задачах, и мы покажем, как ИИ поможет вашему бизнесу"
+                        }
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-105">
+                            {locale === 'en' ? 'Discuss Project' : locale === 'ky' ? 'Долбоорду талкуулоо' : 'Обсудить проект'}
+                        </button>
+                        <button className="px-6 py-3 border border-white/20 text-white hover:bg-white/10 font-semibold rounded-xl transition-all duration-200 hover:scale-105">
+                            {locale === 'en' ? 'View All Cases' : locale === 'ky' ? 'Бардык мисалдарды көрүү' : 'Посмотреть все кейсы'}
+                        </button>
                     </div>
                 </div>
             </div>

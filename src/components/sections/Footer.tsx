@@ -1,38 +1,221 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useTranslation } from '@/components/providers/I18nProvider'
 import { Button } from '@/components/ui/Button'
 
 const Footer: React.FC = () => {
+    const { t, locale } = useTranslation()
     const [email, setEmail] = useState('')
     const currentYear = new Date().getFullYear()
 
+    // Переводы для всех языков
+    const getTranslations = () => {
+        if (locale === 'en') {
+            return {
+                newsletter: {
+                    title: 'Stay updated with latest AI news',
+                    subtitle: 'Get exclusive case studies, market analytics and announcements of new solutions',
+                    placeholder: 'Your email',
+                    button: 'Subscribe',
+                    successMessage: 'Thank you for subscribing!'
+                },
+                company: {
+                    name: 'FiscalePro',
+                    tagline: 'AI Solutions',
+                    description: 'We create intelligent solutions that transform the way companies work.',
+                    slogan: 'Made with ❤️ in Kyrgyzstan'
+                },
+                sections: {
+                    solutions: {
+                        title: 'Solutions',
+                        banking: 'Banking Systems',
+                        government: 'Government Sector',
+                        manufacturing: 'Manufacturing',
+                        api: 'API Integration'
+                    },
+                    company: {
+                        title: 'Company',
+                        about: 'About Us',
+                        team: 'Team',
+                        careers: 'Careers',
+                        blog: 'Blog'
+                    },
+                    support: {
+                        title: 'Support',
+                        documentation: 'Documentation',
+                        cases: 'Case Studies',
+                        faq: 'FAQ',
+                        techSupport: 'Technical Support'
+                    }
+                },
+                achievements: {
+                    projects: 'Projects',
+                    savings: 'Savings',
+                    experts: 'Experts',
+                    uptime: 'Uptime'
+                },
+                technologies: {
+                    title: 'Technologies we work with:'
+                },
+                status: {
+                    online: 'Status: Online 🟢',
+                    responseTime: 'Average response time: 15 minutes'
+                },
+                copyright: 'All rights reserved.',
+                legal: {
+                    privacy: 'Privacy Policy',
+                    terms: 'Terms of Use',
+                    cookies: 'Cookie Policy'
+                }
+            }
+        } else if (locale === 'ky') {
+            return {
+                newsletter: {
+                    title: 'ИИнын акыркы жаңылыктарынан кабардар болуңуз',
+                    subtitle: 'Эксклюзивдүү мисалдарды, рынок аналитикасын жана жаңы чечимдердин жарыялоолорун алыңыз',
+                    placeholder: 'Сиздин email',
+                    button: 'Жазылуу',
+                    successMessage: 'Жазылганыңыз үчүн рахмат!'
+                },
+                company: {
+                    name: 'ФискалеПро',
+                    tagline: 'ИИ Чечимдери',
+                    description: 'Компаниялардын иштөө ыкмасын өзгөрткөн акылдуу чечимдерди түзөбүз.',
+                    slogan: 'Кыргызстанда ❤️ менен жасалган'
+                },
+                sections: {
+                    solutions: {
+                        title: 'Чечимдер',
+                        banking: 'Банктык системалар',
+                        government: 'Мамсектор',
+                        manufacturing: 'Өндүрүш',
+                        api: 'API интеграциясы'
+                    },
+                    company: {
+                        title: 'Компания',
+                        about: 'Биз жөнүндө',
+                        team: 'Команда',
+                        careers: 'Карьера',
+                        blog: 'Блог'
+                    },
+                    support: {
+                        title: 'Колдоо',
+                        documentation: 'Документация',
+                        cases: 'Мисалдар',
+                        faq: 'Көп берилүүчү суроолор',
+                        techSupport: 'Техколдоо'
+                    }
+                },
+                achievements: {
+                    projects: 'Долбоор',
+                    savings: 'Үнөмдөлгөн',
+                    experts: 'Адис',
+                    uptime: 'Жумуштоо убактысы'
+                },
+                technologies: {
+                    title: 'Биз иштеген технологиялар:'
+                },
+                status: {
+                    online: 'Статус: Онлайн 🟢',
+                    responseTime: 'Орточо жооп берүү убактысы: 15 мүнөт'
+                },
+                copyright: 'Бардык укуктар корголгон.',
+                legal: {
+                    privacy: 'Купуялуулук саясаты',
+                    terms: 'Колдонуу шарттары',
+                    cookies: 'Cookie саясаты'
+                }
+            }
+        } else {
+            return {
+                newsletter: {
+                    title: 'Будьте в курсе последних новостей ИИ',
+                    subtitle: 'Получайте эксклюзивные кейсы, аналитику рынка и анонсы новых решений',
+                    placeholder: 'Ваш email',
+                    button: 'Подписаться',
+                    successMessage: 'Спасибо за подписку!'
+                },
+                company: {
+                    name: 'ФискалеПро',
+                    tagline: 'AI Solutions',
+                    description: 'Создаем интеллектуальные решения, которые трансформируют способ работы компаний.',
+                    slogan: 'Сделано с ❤️ в Кыргызстане'
+                },
+                sections: {
+                    solutions: {
+                        title: 'Решения',
+                        banking: 'Банковские системы',
+                        government: 'Госсектор',
+                        manufacturing: 'Производство',
+                        api: 'API интеграция'
+                    },
+                    company: {
+                        title: 'Компания',
+                        about: 'О нас',
+                        team: 'Команда',
+                        careers: 'Карьера',
+                        blog: 'Блог'
+                    },
+                    support: {
+                        title: 'Поддержка',
+                        documentation: 'Документация',
+                        cases: 'Кейсы',
+                        faq: 'FAQ',
+                        techSupport: 'Техподдержка'
+                    }
+                },
+                achievements: {
+                    projects: 'Проектов',
+                    savings: 'Экономии',
+                    experts: 'Экспертов',
+                    uptime: 'Аптайм'
+                },
+                technologies: {
+                    title: 'Технологии, с которыми мы работаем:'
+                },
+                status: {
+                    online: 'Статус: Онлайн 🟢',
+                    responseTime: 'Среднее время ответа: 15 минут'
+                },
+                copyright: 'Все права защищены.',
+                legal: {
+                    privacy: 'Политика конфиденциальности',
+                    terms: 'Условия использования',
+                    cookies: 'Файлы cookie'
+                }
+            }
+        }
+    }
+
+    const translations = getTranslations()
+
     const footerLinks = [
         {
-            title: 'Решения',
+            title: translations.sections.solutions.title,
             links: [
-                { label: 'Банковские системы', href: '#solutions', icon: '🏦' },
-                { label: 'Госсектор', href: '#solutions', icon: '🏛️' },
-                { label: 'Производство', href: '#solutions', icon: '🏭' },
-                { label: 'API интеграция', href: '#solutions', icon: '🔗' },
+                { label: translations.sections.solutions.banking, href: '#solutions', icon: '🏦' },
+                { label: translations.sections.solutions.government, href: '#solutions', icon: '🏛️' },
+                { label: translations.sections.solutions.manufacturing, href: '#solutions', icon: '🏭' },
+                { label: translations.sections.solutions.api, href: '#solutions', icon: '🔗' },
             ]
         },
         {
-            title: 'Компания',
+            title: translations.sections.company.title,
             links: [
-                { label: 'О нас', href: '#about', icon: '👥' },
-                { label: 'Команда', href: '#team', icon: '🚀' },
-                { label: 'Карьера', href: '#careers', icon: '💼' },
-                { label: 'Блог', href: '#blog', icon: '📰' },
+                { label: translations.sections.company.about, href: '#about', icon: '👥' },
+                { label: translations.sections.company.team, href: '#team', icon: '🚀' },
+                { label: translations.sections.company.careers, href: '#careers', icon: '💼' },
+                { label: translations.sections.company.blog, href: '#blog', icon: '📰' },
             ]
         },
         {
-            title: 'Поддержка',
+            title: translations.sections.support.title,
             links: [
-                { label: 'Документация', href: '#docs', icon: '📖' },
-                { label: 'Кейсы', href: '#cases', icon: '📊' },
-                { label: 'FAQ', href: '#faq', icon: '❓' },
-                { label: 'Техподдержка', href: '#support', icon: '🛠️' },
+                { label: translations.sections.support.documentation, href: '#docs', icon: '📖' },
+                { label: translations.sections.support.cases, href: '#cases', icon: '📊' },
+                { label: translations.sections.support.faq, href: '#faq', icon: '❓' },
+                { label: translations.sections.support.techSupport, href: '#support', icon: '🛠️' },
             ]
         }
     ]
@@ -47,18 +230,17 @@ const Footer: React.FC = () => {
     ]
 
     const achievements = [
-        { metric: '50+', label: 'Проектов', icon: '🎯' },
-        { metric: '$10M+', label: 'Экономии', icon: '💰' },
-        { metric: '25+', label: 'Экспертов', icon: '👨‍💻' },
-        { metric: '99.9%', label: 'Аптайм', icon: '⚡' }
+        { metric: '50+', label: translations.achievements.projects, icon: '🎯' },
+        { metric: '$10M+', label: translations.achievements.savings, icon: '💰' },
+        { metric: '25+', label: translations.achievements.experts, icon: '👨‍💻' },
+        { metric: '99.9%', label: translations.achievements.uptime, icon: '⚡' }
     ]
 
     const handleNewsletterSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        // Здесь логика подписки
         console.log('Подписка на email:', email)
         setEmail('')
-        alert('Спасибо за подписку!')
+        alert(translations.newsletter.successMessage)
     }
 
     return (
@@ -74,10 +256,10 @@ const Footer: React.FC = () => {
                 <div className="py-16 border-b border-white/10">
                     <div className="text-center mb-8">
                         <h3 className="text-3xl font-bold text-white mb-4">
-                            Будьте в курсе последних новостей ИИ
+                            {translations.newsletter.title}
                         </h3>
                         <p className="text-white/70 max-w-2xl mx-auto">
-                            Получайте эксклюзивные кейсы, аналитику рынка и анонсы новых решений
+                            {translations.newsletter.subtitle}
                         </p>
                     </div>
 
@@ -87,7 +269,7 @@ const Footer: React.FC = () => {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Ваш email"
+                                placeholder={translations.newsletter.placeholder}
                                 className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                 required
                             />
@@ -96,7 +278,7 @@ const Footer: React.FC = () => {
                                 variant="primary"
                                 className="bg-blue-600 hover:bg-blue-700"
                             >
-                                Подписаться
+                                {translations.newsletter.button}
                             </Button>
                         </div>
                     </form>
@@ -126,13 +308,13 @@ const Footer: React.FC = () => {
                                 <span className="text-white font-bold text-xl">Ф</span>
                             </div>
                             <div>
-                                <h3 className="font-bold text-white text-xl">ФискалеПро</h3>
-                                <p className="text-sm text-white/60">AI Solutions</p>
+                                <h3 className="font-bold text-white text-xl">{translations.company.name}</h3>
+                                <p className="text-sm text-white/60">{translations.company.tagline}</p>
                             </div>
                         </div>
 
                         <p className="text-white/70 mb-6 leading-relaxed">
-                            Создаем интеллектуальные решения, которые трансформируют способ работы компаний.
+                            {translations.company.description}
                         </p>
 
                         {/* Contact Info */}
@@ -147,7 +329,11 @@ const Footer: React.FC = () => {
                             </div>
                             <div className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
                                 <span className="text-lg group-hover:scale-110 transition-transform">📍</span>
-                                <span>Бишкек, Технопарк</span>
+                                <span>
+                                    {locale === 'en' ? 'Bishkek, Tech Park' :
+                                        locale === 'ky' ? 'Бишкек, Техникалык парк' :
+                                            'Бишкек, Технопарк'}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -175,7 +361,7 @@ const Footer: React.FC = () => {
 
                 {/* Technologies */}
                 <div className="py-8 border-t border-white/10 border-b border-white/10">
-                    <h4 className="text-white font-semibold mb-4 text-center">Технологии, с которыми мы работаем:</h4>
+                    <h4 className="text-white font-semibold mb-4 text-center">{translations.technologies.title}</h4>
                     <div className="flex flex-wrap justify-center gap-4">
                         {technologies.map((tech) => (
                             <div
@@ -214,10 +400,10 @@ const Footer: React.FC = () => {
                         {/* Quick Stats */}
                         <div className="text-center">
                             <div className="text-2xl font-bold text-green-400 mb-1">
-                                Статус: Онлайн 🟢
+                                {translations.status.online}
                             </div>
                             <div className="text-white/60 text-sm">
-                                Среднее время ответа: 15 минут
+                                {translations.status.responseTime}
                             </div>
                         </div>
                     </div>
@@ -225,20 +411,20 @@ const Footer: React.FC = () => {
                     {/* Copyright */}
                     <div className="mt-8 pt-8 border-t border-white/10 text-center">
                         <p className="text-sm text-white/60 mb-4">
-                            © {currentYear} ФискалеПро. Все права защищены.
-                            <span className="ml-2">Сделано с ❤️ в Кыргызстане</span>
+                            © {currentYear} {translations.company.name}. {translations.copyright}
+                            <span className="ml-2">{translations.company.slogan}</span>
                         </p>
                         <div className="flex flex-wrap justify-center gap-6 text-sm">
                             <a href="#privacy" className="text-white/60 hover:text-white transition-colors">
-                                Политика конфиденциальности
+                                {translations.legal.privacy}
                             </a>
                             <span className="text-white/40">•</span>
                             <a href="#terms" className="text-white/60 hover:text-white transition-colors">
-                                Условия использования
+                                {translations.legal.terms}
                             </a>
                             <span className="text-white/40">•</span>
                             <a href="#cookies" className="text-white/60 hover:text-white transition-colors">
-                                Файлы cookie
+                                {translations.legal.cookies}
                             </a>
                         </div>
                     </div>

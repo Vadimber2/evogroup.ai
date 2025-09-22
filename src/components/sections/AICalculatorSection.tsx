@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { useTranslation } from '@/components/providers/I18nProvider'
 import { Button } from '@/components/ui/Button'
 
 interface ProjectOptions {
@@ -25,6 +26,7 @@ interface PricingResult {
 }
 
 const AICalculatorSection: React.FC = () => {
+    const { t, locale } = useTranslation()
     const [options, setOptions] = useState<ProjectOptions>({
         type: 'data-analytics',
         duration: 3,
@@ -36,37 +38,227 @@ const AICalculatorSection: React.FC = () => {
     const [result, setResult] = useState<PricingResult | null>(null)
     const [showResult, setShowResult] = useState(false)
 
-    const projectTypes = [
-        { id: 'data-analytics', label: 'Аналитика данных', multiplier: 1.0, icon: '📊' },
-        { id: 'chatbot', label: 'Чат-бот', multiplier: 0.7, icon: '💬' },
-        { id: 'fraud-detection', label: 'Антифрод система', multiplier: 1.5, icon: '🛡️' },
-        { id: 'predictive', label: 'Предиктивная аналитика', multiplier: 1.3, icon: '🔮' },
-        { id: 'document-processing', label: 'Обработка документов', multiplier: 1.1, icon: '📄' },
-        { id: 'computer-vision', label: 'Компьютерное зрение', multiplier: 1.8, icon: '👁️' }
-    ]
+    // Функция для получения строки с fallback
+    const getString = (key: string, fallback: string): string => {
+        const value = t(key, 'calculator')
+        return (typeof value === 'string' && value !== key) ? value : fallback
+    }
 
-    const complexityLevels = [
-        { id: 'simple', label: 'Простой', multiplier: 0.8, description: 'Стандартные алгоритмы' },
-        { id: 'medium', label: 'Средний', multiplier: 1.0, description: 'Кастомная логика' },
-        { id: 'complex', label: 'Сложный', multiplier: 1.4, description: 'Глубокое обучение' },
-        { id: 'enterprise', label: 'Энтерпрайз', multiplier: 1.8, description: 'Масштабируемая архитектура' }
-    ]
+    // Переводы с fallback значениями по языкам
+    const getTranslations = () => {
+        if (locale === 'en') {
+            return {
+                badge: 'Cost Calculator',
+                title: 'Calculate Your AI Project Cost',
+                subtitle: 'Get preliminary cost estimate and development timeline',
+                projectTypeTitle: 'Project Type',
+                durationTitle: 'Development Timeline',
+                complexityTitle: 'Project Complexity',
+                integrationsTitle: 'Integrations',
+                supportTitle: 'Support Level',
+                months: 'months',
+                calculateButton: 'Calculate Cost',
+                totalCost: 'Total Project Cost',
+                developmentTime: 'Development Time',
+                costBreakdown: 'Cost Breakdown',
+                development: 'Development',
+                integrations: 'Integrations',
+                testing: 'Testing',
+                deployment: 'Deployment',
+                training: 'Team Training',
+                total: 'Total',
+                monthlySupport: 'Monthly Support',
+                level: 'level',
+                readyToStart: 'Ready to Start Your Project?',
+                getConsultation: 'Get detailed consultation and accurate estimate from our experts',
+                orderConsultation: 'Request Consultation',
+                downloadEstimate: 'Download PDF Estimate',
+                configureProject: 'Configure Project Parameters',
+                selectOptions: 'Choose project type, complexity and additional options to get cost estimate'
+            }
+        } else if (locale === 'ky') {
+            return {
+                badge: 'Наркты эсептөөчү',
+                title: 'Сиздин ИИ долбооруңуздун наркын эсептеңиз',
+                subtitle: 'Алдын ала наркты жана иштеп чыгуу мөөнөтүн алыңыз',
+                projectTypeTitle: 'Долбоордун түрү',
+                durationTitle: 'Иштеп чыгуу мөөнөтү',
+                complexityTitle: 'Долбоордун татаалдуулугу',
+                integrationsTitle: 'Интеграциялар',
+                supportTitle: 'Колдоо деңгээли',
+                months: 'ай',
+                calculateButton: 'Наркын эсептөө',
+                totalCost: 'Долбоордун жалпы наркы',
+                developmentTime: 'Иштеп чыгуу мөөнөтү',
+                costBreakdown: 'Наркты бөлүштүрүү',
+                development: 'Иштеп чыгуу',
+                integrations: 'Интеграциялар',
+                testing: 'Сыноо',
+                deployment: 'Орнотуу',
+                training: 'Команданы окутуу',
+                total: 'Жыйынтык',
+                monthlySupport: 'Айлык колдоо',
+                level: 'деңгээл',
+                readyToStart: 'Долбоорду баштоого дайынсызбы?',
+                getConsultation: 'Адистерибизден толук консультация жана так смета алыңыз',
+                orderConsultation: 'Консультация заказ берүү',
+                downloadEstimate: 'PDF смета жүктөө',
+                configureProject: 'Долбоор параметрлерин жөндөө',
+                selectOptions: 'Долбоордун түрүн, татаалдуулугун жана кошумча параметрлерди тандап, наркты эсептеп алыңыз'
+            }
+        } else {
+            // Русский по умолчанию
+            return {
+                badge: 'Калькулятор стоимости',
+                title: 'Рассчитайте стоимость вашего ИИ проекта',
+                subtitle: 'Получите предварительную оценку стоимости и сроков разработки',
+                projectTypeTitle: 'Тип проекта',
+                durationTitle: 'Срок разработки',
+                complexityTitle: 'Сложность проекта',
+                integrationsTitle: 'Интеграции',
+                supportTitle: 'Уровень поддержки',
+                months: 'мес',
+                calculateButton: 'Рассчитать стоимость',
+                totalCost: 'Общая стоимость проекта',
+                developmentTime: 'Срок разработки',
+                costBreakdown: 'Детализация стоимости',
+                development: 'Разработка',
+                integrations: 'Интеграции',
+                testing: 'Тестирование',
+                deployment: 'Развертывание',
+                training: 'Обучение команды',
+                total: 'Итого',
+                monthlySupport: 'Ежемесячная поддержка',
+                level: 'уровень',
+                readyToStart: 'Готовы начать проект?',
+                getConsultation: 'Получите детальную консультацию и точную смету от наших экспертов',
+                orderConsultation: 'Заказать консультацию',
+                downloadEstimate: 'Скачать смету PDF',
+                configureProject: 'Настройте параметры проекта',
+                selectOptions: 'Выберите тип проекта, сложность и дополнительные опции для получения расчета стоимости'
+            }
+        }
+    }
 
-    const integrationOptions = [
-        { id: '1c', label: '1С', cost: 15000 },
-        { id: 'sap', label: 'SAP', cost: 25000 },
-        { id: 'crm', label: 'CRM системы', cost: 20000 },
-        { id: 'erp', label: 'ERP системы', cost: 30000 },
-        { id: 'api', label: 'REST API', cost: 10000 },
-        { id: 'database', label: 'Базы данных', cost: 12000 }
-    ]
+    const translations = getTranslations()
 
-    const supportLevels = [
-        { id: 'basic', label: 'Базовая', multiplier: 0.05, description: 'Email поддержка' },
-        { id: 'standard', label: 'Стандартная', multiplier: 0.08, description: '8/5 поддержка' },
-        { id: 'premium', label: 'Премиум', multiplier: 0.12, description: '24/7 поддержка' },
-        { id: 'enterprise', label: 'Корпоративная', multiplier: 0.15, description: 'Выделенная команда' }
-    ]
+    // Данные проектов с переводами
+    const getProjectTypes = () => {
+        if (locale === 'en') {
+            return [
+                { id: 'data-analytics', label: 'Data Analytics', multiplier: 1.0, icon: '📊' },
+                { id: 'chatbot', label: 'Chatbot', multiplier: 0.7, icon: '💬' },
+                { id: 'fraud-detection', label: 'Fraud Detection System', multiplier: 1.5, icon: '🛡️' },
+                { id: 'predictive', label: 'Predictive Analytics', multiplier: 1.3, icon: '🔮' },
+                { id: 'document-processing', label: 'Document Processing', multiplier: 1.1, icon: '📄' },
+                { id: 'computer-vision', label: 'Computer Vision', multiplier: 1.8, icon: '👁️' }
+            ]
+        } else if (locale === 'ky') {
+            return [
+                { id: 'data-analytics', label: 'Маалымат аналитикасы', multiplier: 1.0, icon: '📊' },
+                { id: 'chatbot', label: 'Чат-бот', multiplier: 0.7, icon: '💬' },
+                { id: 'fraud-detection', label: 'Алдамчылыкка каршы система', multiplier: 1.5, icon: '🛡️' },
+                { id: 'predictive', label: 'Алдын ала болжолдуу аналитика', multiplier: 1.3, icon: '🔮' },
+                { id: 'document-processing', label: 'Документтерди иштетүү', multiplier: 1.1, icon: '📄' },
+                { id: 'computer-vision', label: 'Компьютердик көрүү', multiplier: 1.8, icon: '👁️' }
+            ]
+        } else {
+            return [
+                { id: 'data-analytics', label: 'Аналитика данных', multiplier: 1.0, icon: '📊' },
+                { id: 'chatbot', label: 'Чат-бот', multiplier: 0.7, icon: '💬' },
+                { id: 'fraud-detection', label: 'Антифрод система', multiplier: 1.5, icon: '🛡️' },
+                { id: 'predictive', label: 'Предиктивная аналитика', multiplier: 1.3, icon: '🔮' },
+                { id: 'document-processing', label: 'Обработка документов', multiplier: 1.1, icon: '📄' },
+                { id: 'computer-vision', label: 'Компьютерное зрение', multiplier: 1.8, icon: '👁️' }
+            ]
+        }
+    }
+
+    const getComplexityLevels = () => {
+        if (locale === 'en') {
+            return [
+                { id: 'simple', label: 'Simple', multiplier: 0.8, description: 'Standard algorithms' },
+                { id: 'medium', label: 'Medium', multiplier: 1.0, description: 'Custom logic' },
+                { id: 'complex', label: 'Complex', multiplier: 1.4, description: 'Deep learning' },
+                { id: 'enterprise', label: 'Enterprise', multiplier: 1.8, description: 'Scalable architecture' }
+            ]
+        } else if (locale === 'ky') {
+            return [
+                { id: 'simple', label: 'Жөнөкөй', multiplier: 0.8, description: 'Стандарттуу алгоритмдер' },
+                { id: 'medium', label: 'Орточо', multiplier: 1.0, description: 'Атайын логика' },
+                { id: 'complex', label: 'Татаал', multiplier: 1.4, description: 'Терең үйрөнүү' },
+                { id: 'enterprise', label: 'Корпоративдик', multiplier: 1.8, description: 'Масштабдуу архитектура' }
+            ]
+        } else {
+            return [
+                { id: 'simple', label: 'Простой', multiplier: 0.8, description: 'Стандартные алгоритмы' },
+                { id: 'medium', label: 'Средний', multiplier: 1.0, description: 'Кастомная логика' },
+                { id: 'complex', label: 'Сложный', multiplier: 1.4, description: 'Глубокое обучение' },
+                { id: 'enterprise', label: 'Энтерпрайз', multiplier: 1.8, description: 'Масштабируемая архитектура' }
+            ]
+        }
+    }
+
+    const getIntegrationOptions = () => {
+        if (locale === 'en') {
+            return [
+                { id: '1c', label: '1C:Enterprise', cost: 15000 },
+                { id: 'sap', label: 'SAP', cost: 25000 },
+                { id: 'crm', label: 'CRM Systems', cost: 20000 },
+                { id: 'erp', label: 'ERP Systems', cost: 30000 },
+                { id: 'api', label: 'REST API', cost: 10000 },
+                { id: 'database', label: 'Databases', cost: 12000 }
+            ]
+        } else if (locale === 'ky') {
+            return [
+                { id: '1c', label: '1С:Ишкана', cost: 15000 },
+                { id: 'sap', label: 'SAP', cost: 25000 },
+                { id: 'crm', label: 'CRM системалар', cost: 20000 },
+                { id: 'erp', label: 'ERP системалар', cost: 30000 },
+                { id: 'api', label: 'REST API', cost: 10000 },
+                { id: 'database', label: 'Маалымат базалары', cost: 12000 }
+            ]
+        } else {
+            return [
+                { id: '1c', label: '1С', cost: 15000 },
+                { id: 'sap', label: 'SAP', cost: 25000 },
+                { id: 'crm', label: 'CRM системы', cost: 20000 },
+                { id: 'erp', label: 'ERP системы', cost: 30000 },
+                { id: 'api', label: 'REST API', cost: 10000 },
+                { id: 'database', label: 'Базы данных', cost: 12000 }
+            ]
+        }
+    }
+
+    const getSupportLevels = () => {
+        if (locale === 'en') {
+            return [
+                { id: 'basic', label: 'Basic', multiplier: 0.05, description: 'Email support' },
+                { id: 'standard', label: 'Standard', multiplier: 0.08, description: '8/5 support' },
+                { id: 'premium', label: 'Premium', multiplier: 0.12, description: '24/7 support' },
+                { id: 'enterprise', label: 'Enterprise', multiplier: 0.15, description: 'Dedicated team' }
+            ]
+        } else if (locale === 'ky') {
+            return [
+                { id: 'basic', label: 'Негизги', multiplier: 0.05, description: 'Email колдоо' },
+                { id: 'standard', label: 'Стандарттык', multiplier: 0.08, description: '8/5 колдоо' },
+                { id: 'premium', label: 'Премиум', multiplier: 0.12, description: '24/7 колдоо' },
+                { id: 'enterprise', label: 'Корпоративдик', multiplier: 0.15, description: 'Арнайы команда' }
+            ]
+        } else {
+            return [
+                { id: 'basic', label: 'Базовая', multiplier: 0.05, description: 'Email поддержка' },
+                { id: 'standard', label: 'Стандартная', multiplier: 0.08, description: '8/5 поддержка' },
+                { id: 'premium', label: 'Премиум', multiplier: 0.12, description: '24/7 поддержка' },
+                { id: 'enterprise', label: 'Корпоративная', multiplier: 0.15, description: 'Выделенная команда' }
+            ]
+        }
+    }
+
+    const projectTypes = getProjectTypes()
+    const complexityLevels = getComplexityLevels()
+    const integrationOptions = getIntegrationOptions()
+    const supportLevels = getSupportLevels()
 
     const calculatePrice = () => {
         const basePrice = 50000
@@ -101,7 +293,6 @@ const AICalculatorSection: React.FC = () => {
         })
         setShowResult(true)
 
-        // Автоскролл к результатам
         setTimeout(() => {
             const resultsElement = document.querySelector('#calculator-results')
             if (resultsElement) {
@@ -143,7 +334,7 @@ const AICalculatorSection: React.FC = () => {
     }, [options])
 
     return (
-        <section className="py-24 bg-slate-900/50 relative overflow-hidden">
+        <section id="calculator" className="py-24 bg-slate-900/50 relative overflow-hidden">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/3 left-20 w-72 h-72 bg-green-500/5 rounded-full blur-3xl" />
                 <div className="absolute bottom-1/3 right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
@@ -153,13 +344,13 @@ const AICalculatorSection: React.FC = () => {
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 shadow-sm mb-6">
                         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                        Калькулятор стоимости
+                        {translations.badge}
                     </div>
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        Рассчитайте стоимость вашего ИИ проекта
+                        {translations.title}
                     </h2>
                     <p className="text-xl text-white/70 max-w-3xl mx-auto">
-                        Получите предварительную оценку стоимости и сроков разработки
+                        {translations.subtitle}
                     </p>
                 </div>
 
@@ -169,7 +360,9 @@ const AICalculatorSection: React.FC = () => {
                         <div>
                             {/* Project Type */}
                             <div className="mb-8">
-                                <h3 className="text-xl font-bold text-white mb-4">Тип проекта</h3>
+                                <h3 className="text-xl font-bold text-white mb-4">
+                                    {translations.projectTypeTitle}
+                                </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     {projectTypes.map((type) => (
                                         <button
@@ -195,7 +388,9 @@ const AICalculatorSection: React.FC = () => {
 
                             {/* Duration */}
                             <div className="mb-8">
-                                <h3 className="text-xl font-bold text-white mb-4">Срок разработки</h3>
+                                <h3 className="text-xl font-bold text-white mb-4">
+                                    {translations.durationTitle}
+                                </h3>
                                 <div className="bg-white/10 rounded-xl p-4">
                                     <input
                                         type="range"
@@ -206,16 +401,20 @@ const AICalculatorSection: React.FC = () => {
                                         className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
                                     />
                                     <div className="flex justify-between text-sm text-white/60 mt-2">
-                                        <span>1 мес</span>
-                                        <span className="text-white font-medium">{options.duration} мес</span>
-                                        <span>12 мес</span>
+                                        <span>1 {translations.months}</span>
+                                        <span className="text-white font-medium">
+                                            {options.duration} {translations.months}
+                                        </span>
+                                        <span>12 {translations.months}</span>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Complexity */}
                             <div className="mb-8">
-                                <h3 className="text-xl font-bold text-white mb-4">Сложность проекта</h3>
+                                <h3 className="text-xl font-bold text-white mb-4">
+                                    {translations.complexityTitle}
+                                </h3>
                                 <div className="space-y-3">
                                     {complexityLevels.map((level) => (
                                         <button
@@ -243,7 +442,9 @@ const AICalculatorSection: React.FC = () => {
 
                             {/* Integrations */}
                             <div className="mb-8">
-                                <h3 className="text-xl font-bold text-white mb-4">Интеграции</h3>
+                                <h3 className="text-xl font-bold text-white mb-4">
+                                    {translations.integrationsTitle}
+                                </h3>
                                 <div className="grid grid-cols-2 gap-3">
                                     {integrationOptions.map((integration) => (
                                         <label
@@ -267,7 +468,9 @@ const AICalculatorSection: React.FC = () => {
 
                             {/* Support */}
                             <div className="mb-8">
-                                <h3 className="text-xl font-bold text-white mb-4">Уровень поддержки</h3>
+                                <h3 className="text-xl font-bold text-white mb-4">
+                                    {translations.supportTitle}
+                                </h3>
                                 <div className="space-y-3">
                                     {supportLevels.map((level) => (
                                         <button
@@ -285,7 +488,7 @@ const AICalculatorSection: React.FC = () => {
                                                     <div className="text-xs opacity-60">{level.description}</div>
                                                 </div>
                                                 <div className="text-sm font-medium">
-                                                    {(level.multiplier * 100).toFixed(1)}%/мес
+                                                    {(level.multiplier * 100).toFixed(1)}%/{translations.months}
                                                 </div>
                                             </div>
                                         </button>
@@ -299,7 +502,7 @@ const AICalculatorSection: React.FC = () => {
                                 size="lg"
                                 className="w-full bg-blue-600 hover:bg-blue-700"
                             >
-                                Рассчитать стоимость
+                                {translations.calculateButton}
                             </Button>
                         </div>
 
@@ -309,42 +512,46 @@ const AICalculatorSection: React.FC = () => {
                                 <div className="space-y-6">
                                     <div className="bg-gradient-to-br from-blue-500/20 to-violet-500/20 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/30">
                                         <div className="text-center">
-                                            <h3 className="text-2xl font-bold text-white mb-2">Общая стоимость проекта</h3>
+                                            <h3 className="text-2xl font-bold text-white mb-2">
+                                                {translations.totalCost}
+                                            </h3>
                                             <div className="text-4xl font-bold text-blue-400 mb-4">
                                                 {formatPrice(result.totalPrice)}
                                             </div>
                                             <div className="text-white/70">
-                                                Срок разработки: {options.duration} мес
+                                                {translations.developmentTime}: {options.duration} {translations.months}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                                        <h3 className="text-lg font-bold text-white mb-4">Детализация стоимости</h3>
+                                        <h3 className="text-lg font-bold text-white mb-4">
+                                            {translations.costBreakdown}
+                                        </h3>
                                         <div className="space-y-3">
                                             <div className="flex justify-between items-center text-sm">
-                                                <span className="text-white/70">Разработка</span>
+                                                <span className="text-white/70">{translations.development}</span>
                                                 <span className="text-white font-medium">{formatPrice(result.breakdown.development)}</span>
                                             </div>
                                             <div className="flex justify-between items-center text-sm">
-                                                <span className="text-white/70">Интеграции</span>
+                                                <span className="text-white/70">{translations.integrations}</span>
                                                 <span className="text-white font-medium">{formatPrice(result.breakdown.integration)}</span>
                                             </div>
                                             <div className="flex justify-between items-center text-sm">
-                                                <span className="text-white/70">Тестирование</span>
+                                                <span className="text-white/70">{translations.testing}</span>
                                                 <span className="text-white font-medium">{formatPrice(result.breakdown.testing)}</span>
                                             </div>
                                             <div className="flex justify-between items-center text-sm">
-                                                <span className="text-white/70">Развертывание</span>
+                                                <span className="text-white/70">{translations.deployment}</span>
                                                 <span className="text-white font-medium">{formatPrice(result.breakdown.deployment)}</span>
                                             </div>
                                             <div className="flex justify-between items-center text-sm">
-                                                <span className="text-white/70">Обучение</span>
+                                                <span className="text-white/70">{translations.training}</span>
                                                 <span className="text-white font-medium">{formatPrice(result.breakdown.support)}</span>
                                             </div>
                                             <div className="border-t border-white/20 pt-3">
                                                 <div className="flex justify-between items-center font-bold">
-                                                    <span className="text-white">Итого</span>
+                                                    <span className="text-white">{translations.total}</span>
                                                     <span className="text-blue-400 text-lg">{formatPrice(result.totalPrice)}</span>
                                                 </div>
                                             </div>
@@ -354,21 +561,25 @@ const AICalculatorSection: React.FC = () => {
                                     <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
                                         <div className="flex justify-between items-center">
                                             <div>
-                                                <h4 className="text-lg font-bold text-white">Ежемесячная поддержка</h4>
+                                                <h4 className="text-lg font-bold text-white">
+                                                    {translations.monthlySupport}
+                                                </h4>
                                                 <p className="text-white/60 text-sm">
-                                                    {supportLevels.find(s => s.id === options.support)?.label} уровень
+                                                    {supportLevels.find(s => s.id === options.support)?.label} {translations.level}
                                                 </p>
                                             </div>
                                             <div className="text-xl font-bold text-green-400">
-                                                {formatPrice(result.monthlySupport)}/мес
+                                                {formatPrice(result.monthlySupport)}/{translations.months}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 text-center">
-                                        <h4 className="text-lg font-bold text-white mb-3">Готовы начать проект?</h4>
+                                        <h4 className="text-lg font-bold text-white mb-3">
+                                            {translations.readyToStart}
+                                        </h4>
                                         <p className="text-white/70 mb-4 text-sm">
-                                            Получите детальную консультацию и точную смету
+                                            {translations.getConsultation}
                                         </p>
                                         <div className="flex flex-col gap-3">
                                             <Button
@@ -376,14 +587,14 @@ const AICalculatorSection: React.FC = () => {
                                                 size="md"
                                                 className="bg-blue-600 hover:bg-blue-700"
                                             >
-                                                Заказать консультацию
+                                                {translations.orderConsultation}
                                             </Button>
                                             <Button
                                                 variant="outline"
                                                 size="md"
                                                 className="border-white/20 text-white hover:bg-white/10"
                                             >
-                                                Скачать смету PDF
+                                                {translations.downloadEstimate}
                                             </Button>
                                         </div>
                                     </div>
@@ -397,9 +608,11 @@ const AICalculatorSection: React.FC = () => {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2">Настройте параметры проекта</h3>
+                                    <h3 className="text-xl font-bold text-white mb-2">
+                                        {translations.configureProject}
+                                    </h3>
                                     <p className="text-white/60">
-                                        Выберите тип проекта, сложность и дополнительные опции для получения расчета
+                                        {translations.selectOptions}
                                     </p>
                                 </div>
                             )}

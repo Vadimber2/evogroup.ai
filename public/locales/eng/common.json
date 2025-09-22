@@ -1,69 +1,35 @@
 {
-  "header": {
-    "solutions": "Solutions",
-    "cases": "Cases",
-    "technologies": "Technologies",
-    "about": "About Team",
+  "company_name": "FiscalePro",
+  "tagline": "AI Solutions",
+  "buttons": {
+    "start_project": "Start Project",
+    "view_cases": "View Cases",
     "contact": "Contact",
-    "demo": "Demo"
-  },
-  "hero": {
-    "title": "Artificial Intelligence for Business",
-    "subtitle": "We create intelligent solutions that transform how Kyrgyzstan's largest companies work",
-    "startProject": "Start Project",
-    "viewCases": "View Cases",
-    "revolution": "Revolution in Corporate Solutions"
+    "demo": "Demo",
+    "get_consultation": "Get Consultation",
+    "download_presentation": "Download Presentation",
+    "submit": "Submit Request",
+    "subscribe": "Subscribe",
+    "request_demo": "Request Demo",
+    "detailed_case": "Detailed Case",
+    "calculate_price": "Calculate Cost",
+    "order_consultation": "Order Consultation",
+    "download_estimate": "Download PDF Estimate",
+    "open_chatbot": "Open Chatbot",
+    "send_message": "Send"
   },
   "stats": {
     "projects": "Projects",
     "savings": "Client Savings",
     "uptime": "Uptime",
-    "experts": "Experts"
+    "experts": "Experts",
+    "satisfied_clients": "Satisfied Clients",
+    "satisfaction": "Satisfaction",
+    "support": "Support",
+    "years_experience": "Years Experience"
   },
-  "solutions": {
-    "title": "Solutions for Your Business",
-    "subtitle": "We develop AI systems for banks, oil & gas companies, and government organizations",
-    "banking": {
-      "title": "Banking Solutions",
-      "description": "Credit decision automation, risk analysis, and personalized financial products"
-    },
-    "government": {
-      "title": "Government Sector",
-      "description": "Digitalization of public services, data analysis, and process optimization"
-    },
-    "energy": {
-      "title": "Oil & Gas",
-      "description": "Predictive analytics, extraction optimization, and equipment monitoring"
-    }
-  },
-  "technologies": {
-    "title": "Our Technologies",
-    "subtitle": "We use cutting-edge artificial intelligence solutions",
-    "ml": "Machine Learning",
-    "nlp": "Natural Language Processing",
-    "cv": "Computer Vision",
-    "analytics": "Big Data"
-  },
-  "team": {
-    "title": "Our Team",
-    "subtitle": "Experienced specialists with international AI expertise",
-    "specialists": "specialists",
-    "experience": "years experience",
-    "projects": "projects"
-  },
-  "contact": {
-    "title": "Start Your Project",
-    "subtitle": "Tell us about your challenge, and we'll suggest the optimal solution",
-    "name": "Name",
-    "email": "Email",
-    "company": "Company",
-    "message": "Message",
-    "send": "Send",
-    "sending": "Sending..."
-  },
-  "footer": {
-    "company": "FiscalePro",
-    "description": "AI solutions for large businesses in Kyrgyzstan",
-    "rights": "All rights reserved"
-  }
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success",
+  "required": "Required field"
 }
