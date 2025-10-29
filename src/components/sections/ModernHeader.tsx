@@ -6,7 +6,7 @@ import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
 import { Button } from '@/components/ui/Button'
 
 const ModernHeader: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 

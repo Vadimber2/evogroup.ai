@@ -1,11 +1,11 @@
 'use client'
 
 import React from 'react'
-import { useTranslation, Locale } from '@/components/providers/I18nProvider'
+import { useTranslation } from '@/components/providers/I18nProvider'
 import { Button } from '@/components/ui/Button'
 
 const SuccessStories: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
 
     // Функция для получения переводов с fallback значениями
     const getTranslations = () => {
@@ -198,7 +198,7 @@ const SuccessStories: React.FC = () => {
                 </div>
 
                 <div className="space-y-16">
-                    {caseStudies.map((study, index) => (
+                    {caseStudies.map((study) => (
                         <div
                             key={study.id}
                             className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden hover:bg-white/10 transition-all duration-300"

@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { useTranslation, Locale } from '@/components/providers/I18nProvider'
+import { useTranslation } from '@/components/providers/I18nProvider'
 import { Button } from '@/components/ui/Button'
 
 const ModernHero: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
     const [isVisible, setIsVisible] = useState(false)
     const [currentWord, setCurrentWord] = useState(0)
 

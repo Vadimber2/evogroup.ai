@@ -40,8 +40,8 @@ export function I18nProvider({ children, initialLocale = 'ru' }: I18nProviderPro
     // Функция для безопасного импорта переводов
     const safeImport = async (path: string): Promise<NamespaceTranslations> => {
         try {
-            const module = await import(path)
-            return module.default || {}
+            const importedModule = await import(path)
+            return importedModule.default || {}
         } catch (error) {
             console.warn(`Failed to load translations from ${path}:`, error)
             return {}
@@ -172,6 +172,7 @@ export function I18nProvider({ children, initialLocale = 'ru' }: I18nProviderPro
         }
 
         loadTranslations(locale)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Смена языка

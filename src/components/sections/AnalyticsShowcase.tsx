@@ -14,7 +14,7 @@ import {
 } from '@/components/charts/Charts'
 
 const AnalyticsShowcase: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
     const [activeTab, setActiveTab] = useState('banking')
 
     // Переводы для всех языков

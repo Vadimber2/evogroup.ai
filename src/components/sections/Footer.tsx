@@ -5,7 +5,7 @@ import { useTranslation } from '@/components/providers/I18nProvider'
 import { Button } from '@/components/ui/Button'
 
 const Footer: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
     const [email, setEmail] = useState('')
     const currentYear = new Date().getFullYear()
 

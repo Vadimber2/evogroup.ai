@@ -19,7 +19,7 @@ interface QuickReply {
 }
 
 const AIChatbotSection: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
     const [messages, setMessages] = useState<Message[]>([])
     const [inputText, setInputText] = useState('')
@@ -291,7 +291,8 @@ const AIChatbotSection: React.FC = () => {
                 addMessage(getGreeting(), 'bot')
             }, 500)
         }
-    }, [isOpen, locale])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOpen, locale, messages.length])
 
     return (
         <section id="chatbot" className="py-12 sm:py-24 bg-slate-900/30 relative overflow-hidden">

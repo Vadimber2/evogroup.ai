@@ -11,34 +11,32 @@ interface AnimatedSectionProps {
     duration?: number
 }
 
+/**
+ * Компонент для анимации появления секции при скролле.
+ */
 export const AnimatedSection: React.FC<AnimatedSectionProps> = ({
                                                                     children,
                                                                     className = '',
                                                                     animationType = 'fadeIn',
                                                                     delay = 0,
-                                                                    duration = 800
+                                                                    duration = 800,
                                                                 }) => {
-    const { ref, isVisible } = useScrollAnimation()
+    const { ref, isVisible } = useScrollAnimation<HTMLDivElement>()
 
     const getAnimationClasses = () => {
-        const baseClasses = `transition-all duration-${duration} ease-out`
+        const baseClasses = `transition-all ease-out`
 
         switch (animationType) {
             case 'fadeIn':
                 return `${baseClasses} ${isVisible ? 'opacity-100' : 'opacity-0'}`
-
             case 'slideUp':
                 return `${baseClasses} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`
-
             case 'slideInLeft':
                 return `${baseClasses} ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`
-
             case 'slideInRight':
                 return `${baseClasses} ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`
-
             case 'scaleIn':
                 return `${baseClasses} ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`
-
             default:
                 return baseClasses
         }
@@ -50,7 +48,7 @@ export const AnimatedSection: React.FC<AnimatedSectionProps> = ({
             className={`${getAnimationClasses()} ${className}`}
             style={{
                 transitionDelay: `${delay}ms`,
-                transitionDuration: `${duration}ms`
+                transitionDuration: `${duration}ms`,
             }}
         >
             {children}

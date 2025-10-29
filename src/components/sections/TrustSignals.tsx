@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useTranslation, Locale } from '@/components/providers/I18nProvider'
+import { useTranslation } from '@/components/providers/I18nProvider'
 
 const TrustSignals: React.FC = () => {
     const { locale } = useTranslation()

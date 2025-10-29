@@ -26,7 +26,7 @@ interface PricingResult {
 }
 
 const AICalculatorSection: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
     const [options, setOptions] = useState<ProjectOptions>({
         type: 'data-analytics',
         duration: 3,
@@ -37,12 +37,6 @@ const AICalculatorSection: React.FC = () => {
 
     const [result, setResult] = useState<PricingResult | null>(null)
     const [showResult, setShowResult] = useState(false)
-
-    // Функция для получения строки с fallback
-    const getString = (key: string, fallback: string): string => {
-        const value = t(key, 'calculator')
-        return (typeof value === 'string' && value !== key) ? value : fallback
-    }
 
     // Переводы с fallback значениями по языкам
     const getTranslations = () => {
@@ -331,7 +325,8 @@ const AICalculatorSection: React.FC = () => {
         if (showResult) {
             calculatePrice()
         }
-    }, [options])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [options, showResult])
 
     return (
         <section id="calculator" className="py-24 bg-slate-900/50 relative overflow-hidden">

@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import { useTranslation, Locale } from '@/components/providers/I18nProvider'
+import { useTranslation } from '@/components/providers/I18nProvider'
 
 const TechnologyShowcase: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
 
     // Функция для получения переводов с fallback значениями
     const getTranslations = () => {
@@ -328,7 +328,7 @@ const TechnologyShowcase: React.FC = () => {
 
                 {/* Main Technology Categories */}
                 <div className="grid lg:grid-cols-3 gap-8 mb-16">
-                    {technologies.map((tech, index) => (
+                    {technologies.map((tech) => (
                         <div
                             key={tech.category}
                             className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 group"

@@ -14,7 +14,7 @@ interface FormData {
 }
 
 const ContactForm: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
 
     const [formData, setFormData] = useState<FormData>({
         name: '',

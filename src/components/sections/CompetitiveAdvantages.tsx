@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useTranslation, Locale } from '@/components/providers/I18nProvider'
+import { useTranslation } from '@/components/providers/I18nProvider'
 
 const CompetitiveAdvantages: React.FC = () => {
     const { locale } = useTranslation()
@@ -230,7 +230,7 @@ const CompetitiveAdvantages: React.FC = () => {
 
                 {/* Advantages Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                    {advantages.map((advantage, index) => (
+                    {advantages.map((advantage) => (
                         <div
                             key={advantage.title}
                             className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105 border border-white/10 group"

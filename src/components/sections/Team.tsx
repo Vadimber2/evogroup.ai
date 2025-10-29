@@ -1,9 +1,9 @@
 'use client'
 
-import { useTranslation, Locale } from '@/components/providers/I18nProvider'
+import { useTranslation } from '@/components/providers/I18nProvider'
 
 export default function Team() {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
 
     // Функция для получения переводов с fallback значениями
     const getTranslations = () => {

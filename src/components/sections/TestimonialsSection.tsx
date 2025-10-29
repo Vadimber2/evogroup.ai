@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { useTranslation, Locale } from '@/components/providers/I18nProvider'
+import { useTranslation } from '@/components/providers/I18nProvider'
 
 interface Testimonial {
     id: number
@@ -15,7 +15,7 @@ interface Testimonial {
 }
 
 const TestimonialsSection: React.FC = () => {
-    const { t, locale } = useTranslation()
+    const { locale } = useTranslation()
     const [currentSlide, setCurrentSlide] = useState(0)
 
     // Функция для получения переводов с fallback значениями
@@ -219,6 +219,7 @@ const TestimonialsSection: React.FC = () => {
     useEffect(() => {
         const timer = setInterval(nextSlide, 6000)
         return () => clearInterval(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [testimonials.length])
 
     const renderStars = (rating: number) => {

@@ -34,9 +34,9 @@ export function I18nProvider({ children, initialLocale = 'ru' }: I18nProviderPro
     // Функция для безопасного импорта переводов
     const safeImport = async (path: string): Promise<NamespaceTranslations> => {
         try {
-            const module = await import(path)
-            return module.default || {}
-        } catch (error) {
+            const importedModule = await import(path)
+            return importedModule.default || {}
+        } catch {
             console.warn(`Failed to load translations from ${path}`)
             return {}
         }
@@ -142,6 +142,7 @@ export function I18nProvider({ children, initialLocale = 'ru' }: I18nProviderPro
             }
         }
         loadTranslations(locale)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Смена языка
@@ -221,65 +222,5 @@ export function useTranslation(namespace?: string) {
 }
 
 // Утилитарные функции для работы с массивами и объектами
-export function useTranslationHelpers(namespace?: string) {
-    const { t, ...rest } = useTranslation(namespace)
-
-    return {
-        ...rest,
-        t,
-        // Получить массив из переводов
-        getArray: (key: string): string[] => {
-            try {
-                const { translations, locale } = rest as { translations: AllTranslations, locale: Locale }
-                const ns = namespace || 'common'
-                const value = translations[locale]?.[ns]
-                const keys = key.split('.')
-                let result: unknown = value
-
-                for (const k of keys) {
-                    if (result && typeof result === 'object' && k in result) {
-                        result = (result as Record<string, unknown>)[k]
-                    } else {
-                        return []
-                    }
-                }
-
-                if (Array.isArray(result)) {
-                    return result.map(String)
-                }
-                return []
-            } catch {
-                return []
-            }
-        },
-        // Получить объект из переводов
-        getObject: (key: string): Record<string, string> => {
-            try {
-                const { translations, locale } = rest as { translations: AllTranslations, locale: Locale }
-                const ns = namespace || 'common'
-                const value = translations[locale]?.[ns]
-                const keys = key.split('.')
-                let result: unknown = value
-
-                for (const k of keys) {
-                    if (result && typeof result === 'object' && k in result) {
-                        result = (result as Record<string, unknown>)[k]
-                    } else {
-                        return {}
-                    }
-                }
-
-                if (typeof result === 'object' && result !== null && !Array.isArray(result)) {
-                    const obj: Record<string, string> = {}
-                    Object.entries(result as Record<string, unknown>).forEach(([k, v]) => {
-                        obj[k] = String(v)
-                    })
-                    return obj
-                }
-                return {}
-            } catch {
-                return {}
-            }
-        }
-    }
-}
+// Эта функция не экспортируется, так как прямое обращение к translations не рекомендуется
+// Используйте функцию t() для получения переводов

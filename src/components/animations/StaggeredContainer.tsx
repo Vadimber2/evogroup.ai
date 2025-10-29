@@ -14,7 +14,7 @@ export const StaggeredContainer: React.FC<StaggeredContainerProps> = ({
                                                                           className = '',
                                                                           staggerDelay = 150
                                                                       }) => {
-    const { ref, isVisible } = useScrollAnimation()
+    const { ref, isVisible } = useScrollAnimation<HTMLDivElement>()
 
     return (
         <div ref={ref} className={className}>
