@@ -3,7 +3,12 @@ import i18nConfig from './next-i18next.config.js'
 
 const nextConfig: NextConfig = {
     i18n: i18nConfig.i18n,
-    // остальные настройки оставляем как есть
+
+    // остальная конфигурация остаётся
+    swcMinify: true,
+    experimental: {
+        forceSwcTransforms: true,
+    },
 }
 
 export default nextConfig
