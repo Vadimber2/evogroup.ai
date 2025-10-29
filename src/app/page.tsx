@@ -6,7 +6,7 @@ import ModernHero from '@/components/sections/ModernHero'
 import Solutions from '@/components/sections/Solutions'
 import TechnologyShowcase from '@/components/sections/TechnologyShowcase'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
-import AICalculatorSection from '@/components/sections/AICalculatorSection'
+// import AICalculatorSection from '@/components/sections/AICalculatorSection'
 import PortfolioGallery from '@/components/sections/PortfolioGallery'
 import AIChatbotSection from '@/components/sections/AIChatbotSection'
 import SuccessStories from '@/components/sections/SuccessStories'
@@ -25,7 +25,7 @@ export default function Home() {
                 <Solutions />
                 <CompetitiveAdvantages />
                 <TechnologyShowcase />
-                <AICalculatorSection />
+                {/* <AICalculatorSection /> */}
                 <AIChatbotSection />
                 <SuccessStories />
                 <TestimonialsSection />
