@@ -28,7 +28,7 @@ const ContactForm: React.FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    // Переводы для всех языков
+    // --- Переводы ---
     const getTranslations = () => {
         if (locale === 'en') {
             return {
@@ -151,28 +151,58 @@ const ContactForm: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target
-
         setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
         }))
     }
 
+    // --- Отправка через Web3Forms ---
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
 
+        const payload = {
+            access_key: 'd4573125-e740-4b8d-9844-9a4f520416a9',
+            subject: 'Новая заявка с сайта kgdigit.tech 🚀',
+            from_name: 'KG Digital Landing',
+            ...formData,
+        }
+
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000))
-            console.log('Form data:', formData)
-            setIsSubmitted(true)
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: JSON.stringify(payload),
+            })
+
+            const result = await response.json()
+
+            if (result.success) {
+                setIsSubmitted(true)
+                setFormData({
+                    name: '',
+                    email: '',
+                    company: '',
+                    phone: '',
+                    description: '',
+                    newsletter: false,
+                })
+            } else {
+                alert('Ошибка при отправке формы. Попробуйте снова.')
+            }
         } catch (error) {
-            console.error('Error submitting form:', error)
+            console.error(error)
+            alert('Не удалось отправить форму. Проверьте интернет или попробуйте позже.')
         } finally {
             setIsSubmitting(false)
         }
     }
 
+    // --- Успешная отправка ---
     if (isSubmitted) {
         return (
             <section className="px-6 py-24 bg-slate-800/30" id="contact">
@@ -215,6 +245,7 @@ const ContactForm: React.FC = () => {
         )
     }
 
+    // --- Основная форма ---
     return (
         <section className="px-6 py-24 bg-slate-800/30" id="contact">
             <div className="max-w-4xl mx-auto">
@@ -263,14 +294,13 @@ const ContactForm: React.FC = () => {
                     <div className="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label className="block text-white/70 text-sm font-medium mb-3">
-                                {translations.form.fields.company.label} *
+                                {translations.form.fields.company.label}
                             </label>
                             <input
                                 type="text"
                                 name="company"
                                 value={formData.company}
                                 onChange={handleInputChange}
-                                required
                                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                 placeholder={translations.form.fields.company.placeholder}
                             />

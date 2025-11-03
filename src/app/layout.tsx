@@ -7,15 +7,15 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 // Метаданные для каждого языка
 const metadataByLocale = {
     ru: {
-        title: 'ФискалеПро - AI Solutions for Business',
+        title: 'Evolution Group - AI Solutions for Business',
         description: 'Искусственный интеллект для банков, нефтегазовых компаний и государственных организаций Кыргызстана'
     },
     en: {
-        title: 'FiscalePro - AI Solutions for Business',
+        title: 'Evolution Group - AI Solutions for Business',
         description: 'Artificial intelligence for banks, oil & gas companies and government organizations in Kyrgyzstan'
     },
     ky: {
-        title: 'ФискалеПро - Бизнес үчүн AI чечимдери',
+        title: 'Evolution Group - Бизнес үчүн AI чечимдери',
         description: 'Кыргызстандын банктары, мунай-газ компаниялары жана мамлекеттик уюмдары үчүн жасалма акыл'
     }
 }
