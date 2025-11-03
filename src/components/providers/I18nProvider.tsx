@@ -95,7 +95,7 @@ export function I18nProvider({ children, initialLocale = 'ru' }: I18nProviderPro
                 ...prev,
                 [targetLocale]: {
                     common: {
-                        company_name: 'ФискалеПро',
+                        company_name: 'Evolution Group',
                         tagline: 'AI Solutions',
                         buttons: { start_project: 'Начать проект', view_cases: 'Посмотреть кейсы' }
                     },

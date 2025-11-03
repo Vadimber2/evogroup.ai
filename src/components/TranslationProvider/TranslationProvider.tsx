@@ -102,7 +102,7 @@ export function I18nProvider({ children, initialLocale = 'ru' }: I18nProviderPro
             // Fallback переводы с правильной типизацией
             const fallbackTranslations: Record<string, NamespaceTranslations> = {
                 common: {
-                    company_name: 'ФискалеПро',
+                    company_name: 'Evolution Group',
                     tagline: 'AI Solutions',
                     buttons: {
                         start_project: 'Начать проект',
@@ -143,7 +143,7 @@ export function I18nProvider({ children, initialLocale = 'ru' }: I18nProviderPro
                         }
                     }
                 },
-                footer: { company: { name: 'ФискалеПро' } },
+                footer: { company: { name: 'Evolution Group' } },
                 team: { title: 'Наша команда' },
                 testimonials: { title: 'Отзывы' },
                 technology: { title: 'Технологии' },
