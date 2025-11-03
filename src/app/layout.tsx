@@ -8,15 +8,51 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 const metadataByLocale = {
     ru: {
         title: 'Evolution Group - AI Solutions for Business',
-        description: 'Искусственный интеллект для банков, нефтегазовых компаний и государственных организаций Кыргызстана'
+        description: 'Искусственный интеллект для банков, нефтегазовых компаний и государственных организаций Кыргызстана',
+        openGraph: {
+            title: 'Evolution Group - AI Solutions for Business',
+            description: 'Искусственный интеллект для банков, нефтегазовых компаний и государственных организаций Кыргызстана',
+            type: 'website',
+            locale: 'ru_RU',
+            siteName: 'Evolution Group'
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: 'Evolution Group - AI Solutions for Business',
+            description: 'Искусственный интеллект для банков, нефтегазовых компаний и государственных организаций Кыргызстана'
+        }
     },
     en: {
         title: 'Evolution Group - AI Solutions for Business',
-        description: 'Artificial intelligence for banks, oil & gas companies and government organizations in Kyrgyzstan'
+        description: 'Artificial intelligence for banks, oil & gas companies and government organizations in Kyrgyzstan',
+        openGraph: {
+            title: 'Evolution Group - AI Solutions for Business',
+            description: 'Artificial intelligence for banks, oil & gas companies and government organizations in Kyrgyzstan',
+            type: 'website',
+            locale: 'en_US',
+            siteName: 'Evolution Group'
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: 'Evolution Group - AI Solutions for Business',
+            description: 'Artificial intelligence for banks, oil & gas companies and government organizations in Kyrgyzstan'
+        }
     },
     ky: {
         title: 'Evolution Group - Бизнес үчүн AI чечимдери',
-        description: 'Кыргызстандын банктары, мунай-газ компаниялары жана мамлекеттик уюмдары үчүн жасалма акыл'
+        description: 'Кыргызстандын банктары, мунай-газ компаниялары жана мамлекеттик уюмдары үчүн жасалма акыл',
+        openGraph: {
+            title: 'Evolution Group - Бизнес үчүн AI чечимдери',
+            description: 'Кыргызстандын банктары, мунай-газ компаниялары жана мамлекеттик уюмдары үчүн жасалма акыл',
+            type: 'website',
+            locale: 'ky_KG',
+            siteName: 'Evolution Group'
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: 'Evolution Group - Бизнес үчүн AI чечимдери',
+            description: 'Кыргызстандын банктары, мунай-газ компаниялары жана мамлекеттик уюмдары үчүн жасалма акыл'
+        }
     }
 }
 
