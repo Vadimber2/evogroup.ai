@@ -82,10 +82,10 @@ export default function Team() {
                 },
                 {
                     id: 'lead_dev',
-                    name: 'Bekzat Omuraliev',
-                    position: 'Lead Developer',
-                    experience: '10+ years in development',
-                    initials: 'BO',
+                    name: 'Begaiym Zhardambekova',
+                    position: 'Gov & Banks Dept Lead',
+                    experience: '10+ years in IT Tech',
+                    initials: 'BZ',
                     gradient: 'from-green-400 to-blue-600',
                     hoverColor: 'green-400'
                 }
@@ -112,10 +112,10 @@ export default function Team() {
                 },
                 {
                     id: 'lead_dev',
-                    name: 'Бекзат Омуралиев',
-                    position: 'Жетекчи иштеп чыгуучу',
-                    experience: 'Иштеп чыгуу тармагында 10+ жыл',
-                    initials: 'БО',
+                    name: 'Бегайым Жардамбекова',
+                    position: 'Мамлекеттик жана банк бөлүмүнүн жетекчиси',
+                    experience: 'IT Tech тармагында 10+ жыл',
+                    initials: 'БЖ',
                     gradient: 'from-green-400 to-blue-600',
                     hoverColor: 'green-400'
                 }
@@ -142,10 +142,10 @@ export default function Team() {
                 },
                 {
                     id: 'lead_dev',
-                    name: 'Бекзат Омуралиев',
-                    position: 'Lead Developer',
-                    experience: '10+ лет в разработке',
-                    initials: 'БО',
+                    name: 'Бегайым Жардамбекова',
+                    position: 'Gov & Banks Dept Lead',
+                    experience: '10+ лет в IT Tech',
+                    initials: 'БЖ',
                     gradient: 'from-green-400 to-blue-600',
                     hoverColor: 'green-400'
                 }
