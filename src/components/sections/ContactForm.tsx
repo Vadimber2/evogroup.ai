@@ -164,8 +164,8 @@ const ContactForm: React.FC = () => {
 
         const payload = {
             access_key: 'd4573125-e740-4b8d-9844-9a4f520416a9',
-            subject: 'Новая заявка с сайта kgdigit.tech 🚀',
-            from_name: 'KG Digital Landing',
+            subject: 'Новая заявка с сайта Evolution Group 🚀',
+            from_name: 'Evolution Group',
             ...formData,
         }
 
