@@ -89,7 +89,7 @@ const ModernHeader: React.FC = () => {
                 <NavbarBrand className="gap-3">
                     <div className="w-10 h-10 flex items-center justify-center">
                         <Image
-                            src="/Group 1.png"
+                            src="/Vector.svg"
                             alt="Evolution Group Logo"
                             width={40}
                             height={40}

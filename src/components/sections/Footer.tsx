@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Image from 'next/image'
 import { Button, Input, Link } from '@nextui-org/react'
 import { useTranslation } from '@/components/providers/I18nProvider'
 
@@ -169,9 +170,18 @@ const Footer: React.FC = () => {
             {/* Bottom */}
             <div className="relative z-10 max-w-6xl mx-auto px-6 pt-10 border-t border-white/5">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-white/50 text-sm order-2 md:order-1">
-                        © {currentYear} {translations.company.name}. {translations.copyright}
-                    </p>
+                    <div className="flex items-center gap-3 order-2 md:order-1">
+                        <Image
+                            src="/Vector.svg"
+                            alt="Evolution Group Logo"
+                            width={24}
+                            height={24}
+                            className="object-contain"
+                        />
+                        <p className="text-white/50 text-sm">
+                            © {currentYear} {translations.company.name}. {translations.copyright}
+                        </p>
+                    </div>
                     <p className="text-white/50 text-sm order-1 md:order-2">
                         {translations.company.slogan}
                     </p>
