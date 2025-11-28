@@ -29,6 +29,11 @@ const Solutions: React.FC = () => {
                     title: 'Oil & Gas',
                     description: 'Predictive maintenance, production optimization, and safety monitoring',
                     fullDescription: 'We develop solutions that enhance the efficiency of production and management processes in the oil and gas industry. We create systems for production and logistics control, inventory optimization, equipment monitoring, and digitalization of key operations. Our technologies help reduce costs, improve data accuracy, and maintain stable infrastructure performance.'
+                },
+                logistics: {
+                    title: 'Manufacturing & Logistics',
+                    description: 'AI solutions for production optimization, CNC automation, and warehouse management',
+                    fullDescription: 'We develop AI-powered systems for manufacturing and logistics optimization. Our solutions include: Claude Code integration for CNC machine programming (FANUC G-code analysis, trajectory optimization, safety validation), warehouse management systems for inventory tracking, predictive maintenance for production equipment, and logistics process automation. We help factories and plants reduce costs, improve production efficiency, minimize errors, and ensure operational safety through intelligent automation.'
                 }
             }
         } else if (locale === 'ky') {
@@ -50,6 +55,11 @@ const Solutions: React.FC = () => {
                     title: 'Мунай жана газ',
                     description: 'Алдын ала тейлөө, өндүрүштү оптималдаштыруу жана коопсуздукту көзөмөлдөө',
                     fullDescription: 'Биз мунай-газ тармагындагы өндүрүштүк жана башкаруу процесстеринин эффективдүүлүгүн жогорулаткан чечимдерди иштеп чыгабыз. Биз өндүрүш жана логистиканы көзөмөлдөө, товарды эсепке алууну оптималдаштыруу, жабдууларды мониторинг жана негизги операцияларды санариптештирүү системаларын түзөбүз. Биздин технологиялар чыгымдарды кыскартууга, маалыматтардын тактыгын жогорулатууга жана инфраструктуранын туруктуу иштешине жардам берет.'
+                },
+                logistics: {
+                    title: 'Өндүрүш жана логистика',
+                    description: 'Өндүрүштү оптималдаштыруу, ЧПУ автоматташтыруу жана камаларды башкаруу үчүн AI чечимдери',
+                    fullDescription: 'Биз өндүрүштү жана логистиканы оптималдаштыруу үчүн AI системаларын иштеп чыгабыз. Биздин чечимдер камтыйт: ЧПУ станоктарын программалоо үчүн Claude Code интеграциясы (FANUC G-code анализи, траекторияларды оптималдаштыруу, коопсуздукту текшерүү), товарларды көзөмөлдөө үчүн камаларды башкаруу системалары, өндүрүштүк жабдууларды предиктивдүү тейлөө жана логистикалык процесстерди автоматташтыруу. Биз заводдорго жана ишканаларга чыгымдарды кыскартууга, өндүрүштүн эффективдүүлүгүн жогорулатууга, каталарды азайтууга жана акылдуу автоматташтыруу аркылуу операциялардын коопсуздугун камсыздоого жардам беребиз.'
                 }
             }
         } else {
@@ -71,6 +81,11 @@ const Solutions: React.FC = () => {
                     title: 'Нефть и газ',
                     description: 'Предиктивное обслуживание, оптимизация добычи и мониторинг безопасности',
                     fullDescription: 'Мы разрабатываем решения, повышающие эффективность производственных и управленческих процессов в нефтегазовой отрасли. Создаём системы для контроля добычи и логистики, оптимизации товароучёта, мониторинга оборудования и цифровизации ключевых операций. Наши технологии помогают снижать издержки, повышать точность данных и поддерживать стабильную работу инфраструктуры.'
+                },
+                logistics: {
+                    title: 'Производство и логистика',
+                    description: 'AI-решения для оптимизации производства, автоматизации ЧПУ и управления складами',
+                    fullDescription: 'Мы разрабатываем AI-системы для оптимизации производства и логистики. Наши решения включают: интеграцию Claude Code для программирования ЧПУ-станков (анализ FANUC G-code, оптимизация траекторий, валидация безопасности), системы управления складами для отслеживания товаров, предиктивное обслуживание производственного оборудования и автоматизацию логистических процессов. Мы помогаем заводам и предприятиям снижать издержки, повышать эффективность производства, минимизировать ошибки и обеспечивать безопасность операций через интеллектуальную автоматизацию.'
                 }
             }
         }
@@ -102,6 +117,14 @@ const Solutions: React.FC = () => {
             iconSvg: '/neft-gas.svg',
             gradient: 'from-green-500/20 to-emerald-500/20',
             hoverGradient: 'group-hover:from-green-500/30 group-hover:to-emerald-500/30'
+        },
+        {
+            id: 'logistics',
+            title: translations.logistics.title,
+            description: translations.logistics.description,
+            iconSvg: '/logistics.svg',
+            gradient: 'from-orange-500/20 to-amber-500/20',
+            hoverGradient: 'group-hover:from-orange-500/30 group-hover:to-amber-500/30'
         }
     ]
 
@@ -122,7 +145,7 @@ const Solutions: React.FC = () => {
 
             {/* Solutions grid */}
             <div className="relative z-10 max-w-7xl mx-auto px-6">
-                <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                     {solutions.map((solution, index) => (
                         <Card
                             key={solution.id}
@@ -192,12 +215,15 @@ const Solutions: React.FC = () => {
                             ? translations.banking.fullDescription
                             : selectedSolution === 'government'
                             ? translations.government.fullDescription
-                            : translations.energy.fullDescription
+                            : selectedSolution === 'energy'
+                            ? translations.energy.fullDescription
+                            : translations.logistics.fullDescription
 
                         const getIconGradientClass = () => {
                             if (selectedSolution === 'banking') return 'from-blue-500/20 to-cyan-500/20'
                             if (selectedSolution === 'government') return 'from-purple-500/20 to-pink-500/20'
-                            return 'from-green-500/20 to-emerald-500/20'
+                            if (selectedSolution === 'energy') return 'from-green-500/20 to-emerald-500/20'
+                            return 'from-orange-500/20 to-amber-500/20'
                         }
 
                         return (

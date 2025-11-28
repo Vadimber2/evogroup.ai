@@ -10,6 +10,11 @@ const ModernHeader: React.FC = () => {
     const { locale } = useTranslation()
     const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
+    // Debug: log when menu state changes
+    React.useEffect(() => {
+        console.log('Menu open state:', isMenuOpen)
+    }, [isMenuOpen])
+
     // Функция для получения переводов с fallback значениями
     const getTranslations = () => {
         if (locale === 'en') {
@@ -74,11 +79,12 @@ const ModernHeader: React.FC = () => {
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}
             maxWidth="xl"
-            className="bg-black/80 backdrop-blur-2xl border-b border-white/10 fixed top-0"
+            className="bg-black/80 backdrop-blur-2xl border-b border-white/10 fixed top-0 z-50"
             classNames={{
                 wrapper: "px-6 py-2",
                 item: "text-white/70 hover:text-white data-[active=true]:text-white transition-colors",
                 menuItem: "text-white/80",
+                menu: "z-50 mt-16",
             }}
         >
             <NavbarContent>
@@ -128,7 +134,7 @@ const ModernHeader: React.FC = () => {
                 <NavbarItem className="lg:hidden">
                     <NavbarMenuToggle
                         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                        className="text-white"
+                        className="text-white relative z-50"
                     />
                 </NavbarItem>
             </NavbarContent>
