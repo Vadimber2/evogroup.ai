@@ -9,6 +9,20 @@ const Solutions: React.FC = () => {
     const { locale } = useTranslation()
     const [selectedSolution, setSelectedSolution] = useState<string | null>(null)
 
+    const handleSolutionClick = (solutionId: string) => {
+        console.log('Solution clicked:', solutionId)
+        setSelectedSolution(solutionId)
+    }
+
+    const handleModalClose = () => {
+        console.log('Modal closing')
+        setSelectedSolution(null)
+    }
+
+    React.useEffect(() => {
+        console.log('Selected solution changed:', selectedSolution)
+    }, [selectedSolution])
+
     const getTranslations = () => {
         if (locale === 'en') {
             return {
@@ -150,7 +164,8 @@ const Solutions: React.FC = () => {
                         <Card
                             key={solution.id}
                             isPressable
-                            onPress={() => setSelectedSolution(solution.id)}
+                            onPress={() => handleSolutionClick(solution.id)}
+                            onClick={() => handleSolutionClick(solution.id)}
                             className="group bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:scale-105 animate-slide-up cursor-pointer"
                             style={{animationDelay: `${index * 0.1}s`}}
                         >
@@ -195,7 +210,7 @@ const Solutions: React.FC = () => {
             {/* Modal */}
             <Modal
                 isOpen={selectedSolution !== null}
-                onClose={() => setSelectedSolution(null)}
+                onClose={handleModalClose}
                 size="2xl"
                 backdrop="blur"
                 classNames={{
