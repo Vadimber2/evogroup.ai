@@ -2,7 +2,7 @@
 
 import { I18nProvider, useTranslation } from '@/components/providers/I18nProvider'
 import ModernHeader from '@/components/sections/ModernHeader'
-import AIChatbotSection from '@/components/sections/AIChatbotSection'
+import Solutions from '@/components/sections/Solutions'
 import Footer from '@/components/sections/Footer'
 import Image from 'next/image'
 
@@ -77,7 +77,7 @@ function CasesContent() {
                 </div>
             </div>
 
-            <AIChatbotSection />
+            <Solutions />
             <Footer />
         </div>
     )

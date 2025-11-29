@@ -2,7 +2,7 @@
 
 import { I18nProvider, useTranslation } from '@/components/providers/I18nProvider'
 import ModernHeader from '@/components/sections/ModernHeader'
-import Solutions from '@/components/sections/Solutions'
+import AIChatbotSection from '@/components/sections/AIChatbotSection'
 import CompetitiveAdvantages from '@/components/sections/CompetitiveAdvantages'
 import Footer from '@/components/sections/Footer'
 
@@ -74,7 +74,7 @@ function SolutionsContent() {
                 </div>
             </div>
 
-            <Solutions />
+            <AIChatbotSection />
             <CompetitiveAdvantages />
             <Footer />
         </div>
