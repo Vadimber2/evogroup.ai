@@ -4,6 +4,18 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bricolage+Grotesque:wght@400;500;600;700&display=swap');
 
+/* Smooth scrolling для всего документа */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Для браузеров которые не поддерживают scroll-behavior */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
 :root {
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;

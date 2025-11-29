@@ -59,16 +59,35 @@ const ModernHeader: React.FC = () => {
     const translations = getTranslations()
 
     const scrollToSection = (sectionId: string) => {
-        const element = document.getElementById(sectionId)
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
-        }
+        console.log('Scrolling to:', sectionId)
+
+        // Закрываем меню сразу для лучшего UX
         setIsMenuOpen(false)
+
+        // Небольшая задержка для закрытия меню
+        setTimeout(() => {
+            const element = document.getElementById(sectionId)
+            console.log('Element found:', element)
+
+            if (element) {
+                // Получаем высоту хедера для offset
+                const headerHeight = 80
+                const elementPosition = element.getBoundingClientRect().top
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                })
+            } else {
+                console.warn(`Section with id "${sectionId}" not found`)
+            }
+        }, 300)
     }
 
     const menuItems = [
         { key: 'solutions', label: translations.nav.solutions },
-        { key: 'cases', label: translations.nav.cases },
+        { key: 'chatbot', label: translations.nav.cases }, // Изменено с 'cases' на 'chatbot'
         { key: 'technology', label: translations.nav.technology },
         { key: 'team', label: translations.nav.team },
         { key: 'contact', label: translations.nav.contact },
@@ -143,8 +162,12 @@ const ModernHeader: React.FC = () => {
                 {menuItems.map((item, index) => (
                     <NavbarMenuItem key={`${item.key}-${index}`}>
                         <button
-                            className="w-full text-left text-white/80 hover:text-white py-3 text-lg"
-                            onClick={() => scrollToSection(item.key)}
+                            className="w-full text-left text-white/80 hover:text-white py-3 text-lg transition-colors"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                scrollToSection(item.key)
+                            }}
                         >
                             {item.label}
                         </button>
@@ -154,8 +177,12 @@ const ModernHeader: React.FC = () => {
                     <Button
                         color="primary"
                         variant="shadow"
-                        onPress={() => scrollToSection('contact')}
-                        className="w-full mt-4"
+                        onPress={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            scrollToSection('contact')
+                        }}
+                        className="w-full mt-4 bg-blue-600 hover:bg-blue-700"
                     >
                         {translations.cta}
                     </Button>
