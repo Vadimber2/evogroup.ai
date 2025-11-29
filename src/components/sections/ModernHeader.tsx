@@ -81,12 +81,12 @@ const ModernHeader: React.FC = () => {
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={handleMenuOpenChange}
             maxWidth="xl"
-            className="bg-black/80 backdrop-blur-2xl border-b border-white/10 fixed top-0 z-50"
+            className="bg-black/80 backdrop-blur-2xl border-b border-white/10 fixed top-0 z-50 w-full"
             classNames={{
                 wrapper: "px-6 py-2",
                 item: "text-white/70 hover:text-white data-[active=true]:text-white transition-colors",
                 menuItem: "text-white/80",
-                menu: "z-50 mt-16",
+                menu: "fixed top-[64px] left-0 right-0 z-[60] bg-slate-900/98 backdrop-blur-xl",
             }}
         >
             <NavbarContent>
