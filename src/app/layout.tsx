@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { NextUIProvider } from '@/components/providers/NextUIProvider'
+import { Providers } from '@/components/providers/Providers'
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 
@@ -101,9 +101,9 @@ export default function RootLayout({
             <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         </head>
         <body className={`${inter.className} antialiased dark bg-black text-white`}>
-        <NextUIProvider>
+        <Providers>
             {children}
-        </NextUIProvider>
+        </Providers>
         </body>
         </html>
     )

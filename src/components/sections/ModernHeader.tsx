@@ -144,10 +144,6 @@ const ModernHeader: React.FC = () => {
                     <NavbarMenuToggle
                         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                         className="text-white relative z-50"
-                        onClick={(e) => {
-                            console.log('NavbarMenuToggle clicked')
-                            e.stopPropagation()
-                        }}
                     />
                 </NavbarItem>
             </NavbarContent>
