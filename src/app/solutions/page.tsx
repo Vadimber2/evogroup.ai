@@ -18,17 +18,15 @@ export default function SolutionsPage() {
 
                 <ModernHeader />
 
-                {/* Page header */}
-                <section className="relative pt-32 pb-16">
-                    <div className="max-w-7xl mx-auto px-6 text-center">
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                            Решения для вашего бизнеса
+                {/* Minimal page header */}
+                <div className="relative pt-32 pb-12">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <p className="text-sm uppercase tracking-wider text-white/50 mb-3">Решения</p>
+                        <h1 className="text-4xl md:text-5xl font-bold text-white">
+                            Для вашего бизнеса
                         </h1>
-                        <p className="text-xl text-white/70 max-w-3xl mx-auto">
-                            AI-системы, адаптированные под уникальные задачи вашей отрасли
-                        </p>
                     </div>
-                </section>
+                </div>
 
                 <Solutions />
                 <CompetitiveAdvantages />

@@ -17,17 +17,18 @@ export default function ContactPage() {
 
                 <ModernHeader />
 
-                {/* Page header */}
-                <section className="relative pt-32 pb-16">
-                    <div className="max-w-7xl mx-auto px-6 text-center">
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                {/* Minimal page header */}
+                <div className="relative pt-32 pb-12">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <p className="text-sm uppercase tracking-wider text-white/50 mb-3">Контакты</p>
+                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                             Свяжитесь с нами
                         </h1>
-                        <p className="text-xl text-white/70 max-w-3xl mx-auto">
-                            Готовы начать проект? Давайте обсудим, как мы можем помочь вашему бизнесу
+                        <p className="text-lg text-white/60 max-w-2xl">
+                            Готовы начать проект? Обсудим детали
                         </p>
                     </div>
-                </section>
+                </div>
 
                 <ContactForm />
                 <Footer />

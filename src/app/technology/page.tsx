@@ -17,17 +17,18 @@ export default function TechnologyPage() {
 
                 <ModernHeader />
 
-                {/* Page header */}
-                <section className="relative pt-32 pb-16">
-                    <div className="max-w-7xl mx-auto px-6 text-center">
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                            Наши технологии
+                {/* Minimal page header */}
+                <div className="relative pt-32 pb-12">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <p className="text-sm uppercase tracking-wider text-white/50 mb-3">Технологии</p>
+                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                            Современный AI стек
                         </h1>
-                        <p className="text-xl text-white/70 max-w-3xl mx-auto">
-                            Современный AI стек для создания надежных и масштабируемых решений
+                        <p className="text-lg text-white/60 max-w-2xl">
+                            Надежные и масштабируемые решения
                         </p>
                     </div>
-                </section>
+                </div>
 
                 <TechnologyShowcase />
                 <Footer />

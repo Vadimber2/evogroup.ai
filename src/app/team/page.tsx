@@ -18,17 +18,18 @@ export default function TeamPage() {
 
                 <ModernHeader />
 
-                {/* Page header */}
-                <section className="relative pt-32 pb-16">
-                    <div className="max-w-7xl mx-auto px-6 text-center">
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                            Наша команда
+                {/* Minimal page header */}
+                <div className="relative pt-32 pb-12">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <p className="text-sm uppercase tracking-wider text-white/50 mb-3">Команда</p>
+                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                            Эксперты в AI
                         </h1>
-                        <p className="text-xl text-white/70 max-w-3xl mx-auto">
-                            Эксперты в области искусственного интеллекта и машинного обучения
+                        <p className="text-lg text-white/60 max-w-2xl">
+                            Профессионалы с опытом в машинном обучении
                         </p>
                     </div>
-                </section>
+                </div>
 
                 <Team />
                 <TrustSignals />
