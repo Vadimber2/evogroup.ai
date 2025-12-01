@@ -8,13 +8,13 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, Navba
 import { useTranslation } from '@/components/providers/I18nProvider'
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
 
-const ModernHeader: React.FC = () => {
+const ModernHeader: React.FC = React.memo(() => {
     const { locale } = useTranslation()
     const pathname = usePathname()
     const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
-    // Функция для получения переводов с fallback значениями
-    const getTranslations = () => {
+    // Функция для получения переводов с fallback значениями (мемоизированная)
+    const getTranslations = React.useCallback(() => {
         if (locale === 'en') {
             return {
                 company: 'Evolution Group',
@@ -52,19 +52,19 @@ const ModernHeader: React.FC = () => {
                 cta: 'Начать проект'
             }
         }
-    }
+    }, [locale])
 
-    const translations = getTranslations()
+    const translations = React.useMemo(() => getTranslations(), [getTranslations])
 
-    const menuItems = [
+    const menuItems = React.useMemo(() => [
         { href: '/solutions', label: translations.nav.solutions },
         { href: '/cases', label: translations.nav.cases },
         { href: '/technology', label: translations.nav.technology },
         { href: '/team', label: translations.nav.team },
         { href: '/contact', label: translations.nav.contact },
-    ]
+    ], [translations])
 
-    const isActive = (href: string) => pathname === href
+    const isActive = React.useCallback((href: string) => pathname === href, [pathname])
 
     const handleMenuOpenChange = React.useCallback((open: boolean) => {
         setIsMenuOpen(open)
@@ -179,6 +179,8 @@ const ModernHeader: React.FC = () => {
             </NavbarMenu>
         </Navbar>
     )
-}
+})
+
+ModernHeader.displayName = 'ModernHeader'
 
 export default ModernHeader

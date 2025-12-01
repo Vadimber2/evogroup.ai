@@ -49,8 +49,37 @@ body {
 /* Optimize burger menu performance */
 [data-slot="menu"] {
     transition: transform 0.15s ease-out, opacity 0.15s ease-out !important;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 [data-slot="menu-toggle"] {
     transition: transform 0.15s ease-out !important;
+    will-change: transform;
+}
+
+/* Hardware acceleration for smooth animations */
+.language-switcher button,
+[data-slot="wrapper"],
+[data-slot="base"] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Optimize all transitions */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduce motion for accessibility while keeping performance */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

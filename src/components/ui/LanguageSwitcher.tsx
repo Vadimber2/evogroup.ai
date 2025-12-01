@@ -1,37 +1,34 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { useTranslation, Locale } from '@/components/providers/I18nProvider'
 
-const LanguageSwitcher: React.FC = () => {
+const languages = [
+    { code: 'ru' as Locale, name: 'Русский', nativeName: 'Русский', flag: '🇷🇺' },
+    { code: 'en' as Locale, name: 'English', nativeName: 'English', flag: '🇺🇸' },
+    { code: 'ky' as Locale, name: 'Кыргызча', nativeName: 'Кыргызча', flag: '🇰🇬' }
+]
+
+const LanguageSwitcher: React.FC = React.memo(() => {
     const { locale, changeLanguage } = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
 
-    // Инициализация из localStorage
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const savedLocale = localStorage.getItem('locale') as Locale
-            if (savedLocale && ['ru', 'en', 'ky'].includes(savedLocale)) {
-                changeLanguage(savedLocale)
-            }
-        }
-    }, [changeLanguage])
+    const currentLanguage = useMemo(() =>
+        languages.find(lang => lang.code === locale),
+        [locale]
+    )
 
-    const languages = [
-        { code: 'ru' as Locale, name: 'Русский', nativeName: 'Русский', flag: '🇷🇺' },
-        { code: 'en' as Locale, name: 'English', nativeName: 'English', flag: '🇺🇸' },
-        { code: 'ky' as Locale, name: 'Кыргызча', nativeName: 'Кыргызча', flag: '🇰🇬' }
-    ]
-
-    const currentLanguage = languages.find(lang => lang.code === locale)
-
-    const handleLanguageChange = (newLocale: Locale) => {
+    const handleLanguageChange = useCallback((newLocale: Locale) => {
         changeLanguage(newLocale)
         setIsOpen(false)
-    }
+    }, [changeLanguage])
+
+    const toggleOpen = useCallback(() => setIsOpen(prev => !prev), [])
 
     // Закрытие по клику вне области
     useEffect(() => {
+        if (!isOpen) return
+
         const handleClickOutside = (event: MouseEvent) => {
             const target = event.target as HTMLElement
             if (!target.closest('.language-switcher')) {
@@ -39,16 +36,14 @@ const LanguageSwitcher: React.FC = () => {
             }
         }
 
-        if (isOpen) {
-            document.addEventListener('click', handleClickOutside)
-            return () => document.removeEventListener('click', handleClickOutside)
-        }
+        document.addEventListener('click', handleClickOutside)
+        return () => document.removeEventListener('click', handleClickOutside)
     }, [isOpen])
 
     return (
         <div className="relative language-switcher">
             <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={toggleOpen}
                 className="flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all duration-200 hover:scale-105"
                 aria-label="Выбрать язык"
             >
@@ -104,6 +99,8 @@ const LanguageSwitcher: React.FC = () => {
             )}
         </div>
     )
-}
+})
+
+LanguageSwitcher.displayName = 'LanguageSwitcher'
 
 export default LanguageSwitcher
