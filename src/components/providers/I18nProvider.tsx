@@ -68,17 +68,16 @@ interface I18nProviderProps {
     initialLocale?: Locale
 }
 
-export const I18nProvider = React.memo(({ children, initialLocale = 'ru' }: I18nProviderProps) => {
+const I18nProviderComponent = ({ children, initialLocale = 'ru' }: I18nProviderProps) => {
     const [locale, setLocale] = useState<Locale>(initialLocale)
-    const [isHydrated, setIsHydrated] = useState(false)
 
     // Синхронизация с localStorage после гидратации
     React.useEffect(() => {
-        setIsHydrated(true)
         const saved = localStorage.getItem('locale') as Locale
         if (saved && ['ru', 'en', 'ky'].includes(saved) && saved !== locale) {
             setLocale(saved)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Смена языка (оптимизированная)
@@ -130,7 +129,11 @@ export const I18nProvider = React.memo(({ children, initialLocale = 'ru' }: I18n
             {children}
         </I18nContext.Provider>
     )
-})
+}
+
+I18nProviderComponent.displayName = 'I18nProvider'
+
+export const I18nProvider = React.memo(I18nProviderComponent)
 
 // Оптимизированный хук
 export function useTranslation(namespace?: string) {
