@@ -1,96 +1,74 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button } from "@nextui-org/react"
 import { useTranslation } from '@/components/providers/I18nProvider'
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
 
-const ModernHeader: React.FC = React.memo(() => {
+const ModernHeader = () => {
     const { locale } = useTranslation()
     const pathname = usePathname()
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-    // Функция для получения переводов с fallback значениями (мемоизированная)
-    const getTranslations = React.useCallback(() => {
-        if (locale === 'en') {
-            return {
-                company: 'Evolution Group',
-                nav: {
-                    solutions: 'Solutions',
-                    cases: 'Cases',
-                    technology: 'Technology',
-                    team: 'Team',
-                    contact: 'Contact'
-                },
-                cta: 'Start Project'
-            }
-        } else if (locale === 'ky') {
-            return {
-                company: 'Evolution Group',
-                nav: {
-                    solutions: 'Чечимдер',
-                    cases: 'Мисалдар',
-                    technology: 'Технологиялар',
-                    team: 'Команда',
-                    contact: 'Байланыш'
-                },
-                cta: 'Долбоорду баштоо'
-            }
-        } else {
-            return {
-                company: 'Evolution Group',
-                nav: {
-                    solutions: 'Решения',
-                    cases: 'Кейсы',
-                    technology: 'Технологии',
-                    team: 'Команда',
-                    contact: 'Контакты'
-                },
-                cta: 'Начать проект'
-            }
+    // Переводы
+    const translations = {
+        ru: {
+            company: 'Evolution Group',
+            solutions: 'Решения',
+            cases: 'Кейсы',
+            technology: 'Технологии',
+            team: 'Команда',
+            contact: 'Контакты',
+            cta: 'Начать проект'
+        },
+        en: {
+            company: 'Evolution Group',
+            solutions: 'Solutions',
+            cases: 'Cases',
+            technology: 'Technology',
+            team: 'Team',
+            contact: 'Contact',
+            cta: 'Start Project'
+        },
+        ky: {
+            company: 'Evolution Group',
+            solutions: 'Чечимдер',
+            cases: 'Мисалдар',
+            technology: 'Технологиялар',
+            team: 'Команда',
+            contact: 'Байланыш',
+            cta: 'Долбоорду баштоо'
         }
-    }, [locale])
+    }
 
-    const translations = React.useMemo(() => getTranslations(), [getTranslations])
+    const t = translations[locale] || translations.ru
 
-    const menuItems = React.useMemo(() => [
-        { href: '/solutions', label: translations.nav.solutions },
-        { href: '/cases', label: translations.nav.cases },
-        { href: '/technology', label: translations.nav.technology },
-        { href: '/team', label: translations.nav.team },
-        { href: '/contact', label: translations.nav.contact },
-    ], [translations])
+    const menuItems = [
+        { href: '/solutions', label: t.solutions },
+        { href: '/cases', label: t.cases },
+        { href: '/technology', label: t.technology },
+        { href: '/team', label: t.team },
+        { href: '/contact', label: t.contact },
+    ]
 
-    const isActive = React.useCallback((href: string) => pathname === href, [pathname])
+    const isActive = (href: string) => pathname === href
 
-    const handleMenuOpenChange = React.useCallback((open: boolean) => {
-        setIsMenuOpen(open)
-    }, [])
+    const toggleMenu = () => {
+        console.log('Toggle menu clicked, current state:', isMobileMenuOpen)
+        setIsMobileMenuOpen(!isMobileMenuOpen)
+    }
+
+    const closeMenu = () => {
+        setIsMobileMenuOpen(false)
+    }
 
     return (
-        <Navbar
-            isMenuOpen={isMenuOpen}
-            onMenuOpenChange={handleMenuOpenChange}
-            maxWidth="xl"
-            className="bg-black/80 backdrop-blur-2xl border-b border-white/10 fixed top-0 z-50 w-full"
-            classNames={{
-                wrapper: "px-6 py-2",
-                item: "text-white/70 hover:text-white data-[active=true]:text-white transition-colors",
-                menuItem: "text-white/80",
-                menu: "fixed top-[64px] left-0 right-0 z-[60] bg-slate-900/98 backdrop-blur-xl",
-            }}
-            motionProps={{
-                initial: { opacity: 0, y: -20 },
-                animate: { opacity: 1, y: 0 },
-                exit: { opacity: 0, y: -20 },
-                transition: { duration: 0.15, ease: "easeOut" }
-            }}
-        >
-            <NavbarContent>
-                <NavbarBrand className="gap-3">
+        <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-2xl border-b border-white/10">
+            <div className="max-w-7xl mx-auto px-6 py-4">
+                <div className="flex items-center justify-between">
+                    {/* Logo */}
                     <Link href="/" className="flex items-center gap-3">
                         <div className="w-10 h-10 flex items-center justify-center">
                             <Image
@@ -102,85 +80,88 @@ const ModernHeader: React.FC = React.memo(() => {
                             />
                         </div>
                         <p className="font-bold text-white text-xl">
-                            {translations.company}
+                            {t.company}
                         </p>
                     </Link>
-                </NavbarBrand>
-            </NavbarContent>
 
-            <NavbarContent className="hidden lg:flex gap-8" justify="center">
-                {menuItems.map((item) => (
-                    <NavbarItem key={item.href} isActive={isActive(item.href)}>
-                        <Link
-                            href={item.href}
-                            className={`font-medium transition-colors duration-200 ${
-                                isActive(item.href)
-                                    ? 'text-white'
-                                    : 'text-white/80 hover:text-white'
-                            }`}
-                        >
-                            {item.label}
+                    {/* Desktop Navigation */}
+                    <nav className="hidden lg:flex items-center gap-8">
+                        {menuItems.map((item) => (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={`font-medium transition-colors duration-200 ${
+                                    isActive(item.href)
+                                        ? 'text-white'
+                                        : 'text-white/80 hover:text-white'
+                                }`}
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
+                    </nav>
+
+                    {/* Right side: Language + CTA + Mobile Menu */}
+                    <div className="flex items-center gap-4">
+                        <LanguageSwitcher />
+
+                        {/* Desktop CTA */}
+                        <Link href="/contact" className="hidden sm:block">
+                            <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-blue-600/20">
+                                {t.cta}
+                            </button>
                         </Link>
-                    </NavbarItem>
-                ))}
-            </NavbarContent>
 
-            <NavbarContent justify="end" className="gap-4">
-                <NavbarItem>
-                    <LanguageSwitcher />
-                </NavbarItem>
-                <NavbarItem className="hidden sm:flex">
-                    <Link href="/contact">
-                        <Button
-                            color="primary"
-                            variant="shadow"
-                            className="bg-blue-600 hover:bg-blue-700"
+                        {/* Mobile Menu Button */}
+                        <button
+                            onClick={toggleMenu}
+                            className="lg:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+                            aria-label="Toggle menu"
                         >
-                            {translations.cta}
-                        </Button>
-                    </Link>
-                </NavbarItem>
-                <NavbarItem className="lg:hidden">
-                    <NavbarMenuToggle
-                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                        className="text-white relative z-50"
-                    />
-                </NavbarItem>
-            </NavbarContent>
+                            {isMobileMenuOpen ? (
+                                // Close icon
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            ) : (
+                                // Hamburger icon
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            )}
+                        </button>
+                    </div>
+                </div>
 
-            <NavbarMenu className="bg-slate-900/98 backdrop-blur-xl pt-6">
-                {menuItems.map((item, index) => (
-                    <NavbarMenuItem key={`${item.href}-${index}`}>
-                        <Link
-                            href={item.href}
-                            className={`w-full block py-3 text-lg transition-colors ${
-                                isActive(item.href)
-                                    ? 'text-white font-semibold'
-                                    : 'text-white/80 hover:text-white'
-                            }`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            {item.label}
-                        </Link>
-                    </NavbarMenuItem>
-                ))}
-                <NavbarMenuItem>
-                    <Link href="/contact" className="w-full block mt-4">
-                        <Button
-                            color="primary"
-                            variant="shadow"
-                            className="w-full bg-blue-600 hover:bg-blue-700"
-                            onPress={() => setIsMenuOpen(false)}
-                        >
-                            {translations.cta}
-                        </Button>
-                    </Link>
-                </NavbarMenuItem>
-            </NavbarMenu>
-        </Navbar>
+                {/* Mobile Menu */}
+                {isMobileMenuOpen && (
+                    <div className="lg:hidden mt-4 pb-4 border-t border-white/10 pt-4 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <nav className="flex flex-col gap-2">
+                            {menuItems.map((item) => (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    onClick={closeMenu}
+                                    className={`px-4 py-3 rounded-lg transition-colors ${
+                                        isActive(item.href)
+                                            ? 'text-white font-semibold bg-white/10'
+                                            : 'text-white/80 hover:text-white hover:bg-white/5'
+                                    }`}
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
+                            <Link href="/contact" onClick={closeMenu} className="mt-2">
+                                <button className="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-blue-600/20">
+                                    {t.cta}
+                                </button>
+                            </Link>
+                        </nav>
+                    </div>
+                )}
+            </div>
+        </header>
     )
-})
-
-ModernHeader.displayName = 'ModernHeader'
+}
 
 export default ModernHeader
